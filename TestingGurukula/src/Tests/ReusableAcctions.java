@@ -1,10 +1,11 @@
 package Tests;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,20 +16,104 @@ public class ReusableAcctions {
 	public void ResultsFile(String Location) throws IOException {
 		XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Gurukula");
-        Row row = sheet.createRow(0);
-        for (int c = 0; c < 6; c++) {
-        	Cell cell = row.createCell(c);
-        	if (c == 0) {
-        		cell.setCellValue("Test Name");
-        	}
-        	else {
-        		cell.setCellValue("Test step");
-        	}
-        }        
+        //create table header and write test cases
+        for (int r = 0; r < 12; r++) {
+        	Row row = sheet.createRow(r);
+            for (int c = 0; c < 6; c++) {
+            	Cell cell = row.createCell(c);
+            	switch (r) {
+					case 0: if (c == 0) {
+								cell.setCellValue("Test Name");
+							}
+							else if (c > 0) {
+			            		cell.setCellValue("Test step");
+			            	}
+					break;
+					case 1: if (c == 0) {
+								cell.setCellValue("Login Information");
+							}
+					break;
+					case 2:	if (c == 0) {
+								cell.setCellValue("Password Change");
+							}
+					break;
+					case 3: if (c == 0) {
+								cell.setCellValue("New User Registration");
+							}
+					break;
+					case 4: if (c == 0) {
+								cell.setCellValue("Account Information");
+							}
+					break;
+					case 5: if (c == 0) {
+								cell.setCellValue("Data format for Branch and Staff");
+							}
+					break;
+					case 6:	if (c == 0) {
+								cell.setCellValue("Create");
+							}
+					break;
+					case 7: if (c == 0) {
+								cell.setCellValue("View");
+							}
+					break;
+					case 8: if (c == 0) {
+								cell.setCellValue("Edit");
+							}
+					break;
+					case 9: if (c == 0) {
+								cell.setCellValue("Delete");
+							}
+					break;
+					case 10: if (c == 0) {
+								cell.setCellValue("Query Branch and Staff");
+							}					
+					break;
+					case 11: if (c == 4) {
+								cell.setCellValue("Total");
+							}
+					break;
+            	}
+            } 
+        }               
         FileOutputStream outputStream = new FileOutputStream(Location);
         workbook.write(outputStream);
         workbook.close();
 	}
+	
+//	public void WriteResults(String Location, int Row, int Column) {
+//		FileInputStream input= new FileInputStream(new File(Location));                  
+//		XSSFWorkbook workbook = new XSSFWorkbook(input); 
+//		XSSFSheet sheet = workbook.getSheetAt(0); 
+//		//write results
+//        Row row = sheet.createRow(Row);
+//        for (int c = 0; c < 6; c++) {
+//        	Cell cell = row.createCell(c);
+//        	if (c == 0) {
+//        		cell.setCellValue("Test Name");
+//        	}
+//        	else {
+//        		cell.setCellValue("Test step");
+//        	}
+//        }        
+//        FileOutputStream outputStream = new FileOutputStream(Location);
+//        workbook.write(outputStream);
+//        workbook.close();		
+//		// declare a Cell object
+//		Cell cell = null; 
+//		// Access the second cell in second row to update the value
+//		cell = worksheet.getRow(1).getCell(1);   
+//		// Get current cell value value and overwrite the value
+//		cell.setCellValue("OverRide existing value");
+//		//Close the InputStream  
+//		fsIP.close(); 
+//		//Open FileOutputStream to write updates
+//		FileOutputStream output_file =new FileOutputStream(new File("C:\\Excel.xls"));  
+//		 //write changes
+//		wb.write(output_file);
+//		//close the stream
+//		output_file.close();
+//	}
 	
 	public void OpenBrowser() {
 		Tests.Constants.Mozila.manage().window().maximize();;
