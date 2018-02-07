@@ -123,7 +123,7 @@ public class ReusableAcctions {
 		Thread.sleep(1000);
 	}
 	
-	public void CreateBranch (String Name, String Code, int Row, int Column) throws InterruptedException, IOException {
+	public void CreateBranch(String Name, String Code, int Row, int Column, int Single) throws InterruptedException, IOException {
 		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[1]/button")).click();
 		Thread.sleep(1000);
 		
@@ -132,15 +132,50 @@ public class ReusableAcctions {
 		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
 		Thread.sleep(1000);
 		
-		String BranchName = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
-		String BranchCode = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
-		if (BranchName.equalsIgnoreCase(Name) && BranchCode.equalsIgnoreCase(Code)) {
-			this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Passed");
+		if (Single == 1) {
+			String BranchName = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
+			String BranchCode = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
+			if (BranchName.equalsIgnoreCase(Name) && BranchCode.equalsIgnoreCase(Code)) {
+				this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Passed");
+			}
+			else {
+				this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Failed");
+			}
 		}
-		else {
-			this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Failed");
-		}			
 	}
 	
+	public void CreateStaff(String Name, int Row, int Column, int Single) throws InterruptedException, IOException {
+		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[1]/button")).click();
+		Thread.sleep(1500);
+		
+		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Name);
+		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select")).click();
+		Thread.sleep(500);
+		switch (Single) {
+			case 1: Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[2]")).click();
+			break;
+			case 2: Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[2]")).click();
+			break;
+			case 3: Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[3]")).click();
+			break;
+			case 4: Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[2]")).click();
+			break;
+			case 5: Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[5]")).click();
+			break;
+		}					
+		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
+		Thread.sleep(1500);
+				
+		if (Single == 1) {
+			String StaffName = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
+			String BranchName = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
+			if (StaffName.equalsIgnoreCase(Name) && BranchName.equalsIgnoreCase(Tests.Constants.Branch)) {
+				this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Passed");
+			}
+			else {
+				this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Failed");
+			}
+		}
+	}
 	
 }
