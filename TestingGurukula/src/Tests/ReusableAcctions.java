@@ -2,7 +2,6 @@ package Tests;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -14,8 +13,7 @@ import org.openqa.selenium.By;
 public class ReusableAcctions {
 	
 	public void ResultsFile(String Location) throws IOException {
-		XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Gurukula");
+        XSSFSheet sheet = Tests.Constants.workbook.createSheet("Gurukula");
         //create table header and write test cases
         for (int r = 0; r < 12; r++) {
         	Row row = sheet.createRow(r);
@@ -77,43 +75,25 @@ public class ReusableAcctions {
             } 
         }               
         FileOutputStream outputStream = new FileOutputStream(Location);
-        workbook.write(outputStream);
-        workbook.close();
+        Tests.Constants.workbook.write(outputStream);
+        Tests.Constants.workbook.close();
 	}
 	
-//	public void WriteResults(String Location, int Row, int Column) {
-//		FileInputStream input= new FileInputStream(new File(Location));                  
-//		XSSFWorkbook workbook = new XSSFWorkbook(input); 
-//		XSSFSheet sheet = workbook.getSheetAt(0); 
-//		//write results
-//        Row row = sheet.createRow(Row);
-//        for (int c = 0; c < 6; c++) {
-//        	Cell cell = row.createCell(c);
-//        	if (c == 0) {
-//        		cell.setCellValue("Test Name");
-//        	}
-//        	else {
-//        		cell.setCellValue("Test step");
-//        	}
-//        }        
-//        FileOutputStream outputStream = new FileOutputStream(Location);
-//        workbook.write(outputStream);
-//        workbook.close();		
-//		// declare a Cell object
-//		Cell cell = null; 
-//		// Access the second cell in second row to update the value
-//		cell = worksheet.getRow(1).getCell(1);   
-//		// Get current cell value value and overwrite the value
-//		cell.setCellValue("OverRide existing value");
-//		//Close the InputStream  
-//		fsIP.close(); 
-//		//Open FileOutputStream to write updates
-//		FileOutputStream output_file =new FileOutputStream(new File("C:\\Excel.xls"));  
-//		 //write changes
-//		wb.write(output_file);
-//		//close the stream
-//		output_file.close();
-//	}
+	public void WriteResults(String Location, int Row, int Column, String Result) throws IOException {
+		FileInputStream input= new FileInputStream(new File(Location));                  
+		XSSFWorkbook workbook = new XSSFWorkbook(input);
+		XSSFSheet sheet = workbook.getSheetAt(0); 
+		//select cell were to write results
+		Cell cell = null;
+		cell = sheet.getRow(Row).getCell(Column);
+		cell.setCellValue(Result);
+        
+        //write results and close file
+        input.close();
+        FileOutputStream output = new FileOutputStream(new File(Location));
+        workbook.write(output);
+        output.close();
+	}
 	
 	public void OpenBrowser() {
 		Tests.Constants.Mozila.manage().window().maximize();;
@@ -143,7 +123,7 @@ public class ReusableAcctions {
 		Thread.sleep(1000);
 	}
 	
-	public void CreateBranch (String Name, String Code) throws InterruptedException {
+	public void CreateBranch (String Name, String Code, int Row, int Column) throws InterruptedException, IOException {
 		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[1]/button")).click();
 		Thread.sleep(1000);
 		
@@ -155,8 +135,11 @@ public class ReusableAcctions {
 		String BranchName = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
 		String BranchCode = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
 		if (BranchName.equalsIgnoreCase(Name) && BranchCode.equalsIgnoreCase(Code)) {
-			
+			this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Passed");
 		}
+		else {
+			this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Failed");
+		}			
 	}
 	
 	
