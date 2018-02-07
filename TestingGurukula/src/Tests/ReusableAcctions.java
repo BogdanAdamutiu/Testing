@@ -10,8 +10,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
+import org.openqa.selenium.firefox.FirefoxDriver;
 public class ReusableAcctions {
 	
+	FirefoxDriver Mozila = new FirefoxDriver();
+		
 	public void ResultsFile(String Location) throws IOException {
         XSSFSheet sheet = Tests.Constants.workbook.createSheet("Gurukula");
         //create table header and write test cases
@@ -96,45 +99,45 @@ public class ReusableAcctions {
 	}
 	
 	public void OpenBrowser() {
-		Tests.Constants.Mozila.manage().window().maximize();;
-		Tests.Constants.Mozila.navigate().to("http://192.168.178.227:8080/");
-		Tests.Constants.Mozila.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);		
+		Mozila.manage().window().maximize();;
+		Mozila.navigate().to("http://192.168.178.227:8080/");
+		Mozila.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);		
 	}
 	
 	public void Login(String User, String Password) throws InterruptedException {
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div[1]/a")).click();		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div[1]/a")).click();		
 		Thread.sleep(1000);		
-		Tests.Constants.Mozila.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys(User);
-		Tests.Constants.Mozila.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(Password);
-		Tests.Constants.Mozila.findElement(By.xpath("//*[@id=\"rememberMe\"]")).click();
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).click();
+		Mozila.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys(User);
+		Mozila.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(Password);
+		Mozila.findElement(By.xpath("//*[@id=\"rememberMe\"]")).click();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).click();
 		Thread.sleep(2000);
 	}
 	
 	public void NavigateToBranch() throws InterruptedException {
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[2]/a/span/b")).click();
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[2]/ul/li[1]/a/span[2]")).click();
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[2]/a/span/b")).click();
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[2]/ul/li[1]/a/span[2]")).click();
 		Thread.sleep(1000);
 	}
 	
 	public void NavigateToStaff() throws InterruptedException {
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[2]/a/span/span[2]")).click();
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[2]/ul/li[2]/a/span[2]")).click();											
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[2]/a/span/span[2]")).click();
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[2]/ul/li[2]/a/span[2]")).click();											
 		Thread.sleep(1000);
 	}
 	
 	public void CreateBranch(String Name, String Code, int Row, int Column, int Single) throws InterruptedException, IOException {
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[1]/button")).click();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[1]/button")).click();
 		Thread.sleep(1000);
 		
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Name);
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/input")).sendKeys(Code);
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Name);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/input")).sendKeys(Code);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
 		Thread.sleep(1000);
 		
 		if (Single == 1) {
-			String BranchName = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
-			String BranchCode = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
+			String BranchName = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
+			String BranchCode = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
 			if (BranchName.equalsIgnoreCase(Name) && BranchCode.equalsIgnoreCase(Code)) {
 				this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Passed");
 			}
@@ -145,30 +148,30 @@ public class ReusableAcctions {
 	}
 	
 	public void CreateStaff(String Name, int Row, int Column, int Single) throws InterruptedException, IOException {
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[1]/button")).click();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[1]/button")).click();
 		Thread.sleep(1500);
 		
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Name);
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select")).click();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Name);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select")).click();
 		Thread.sleep(500);
 		switch (Single) {
-			case 1: Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[2]")).click();
+			case 1: Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[2]")).click();
 			break;
-			case 2: Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[2]")).click();
+			case 2: Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[2]")).click();
 			break;
-			case 3: Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[3]")).click();
+			case 3: Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[3]")).click();
 			break;
-			case 4: Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[2]")).click();
+			case 4: Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[2]")).click();
 			break;
-			case 5: Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[5]")).click();
+			case 5: Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select/option[5]")).click();
 			break;
 		}					
-		Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
 		Thread.sleep(1500);
 				
 		if (Single == 1) {
-			String StaffName = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
-			String BranchName = Tests.Constants.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
+			String StaffName = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
+			String BranchName = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
 			if (StaffName.equalsIgnoreCase(Name) && BranchName.equalsIgnoreCase(Tests.Constants.Branch)) {
 				this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Passed");
 			}
@@ -176,6 +179,24 @@ public class ReusableAcctions {
 				this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Failed");
 			}
 		}
+	}
+	
+	public void Logout(int RowLogout, int ColumnLogout) throws InterruptedException, IOException {
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/a/span/span[2]")).click();
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/ul/li[4]/a/span[2]")).click();
+		Thread.sleep(1500);
+//		String Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/h1")).getAttribute("innerText");												
+//		if (Status == "Welcome to Gurukula!") {
+//			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Passed");
+//		}
+//		else {
+//			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Failed");
+//		}
+	}
+	
+	public void Close() throws InterruptedException {
+		Mozila.close();
+		Thread.sleep(5000);
 	}
 	
 }
