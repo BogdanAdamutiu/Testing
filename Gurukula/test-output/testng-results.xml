@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="43" passed="43" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2018-02-07T16:25:22Z" name="Test Cases" finished-at="2018-02-07T16:30:04Z" duration-ms="282814">
+    <groups>
+    </groups>
+    <test started-at="2018-02-07T16:25:22Z" name="Test Login Information" finished-at="2018-02-07T16:25:46Z" duration-ms="23957">
+      <class name="TestCases.TestLogin">
+        <test-method is-config="true" signature="init()[pri:0, instance:TestCases.TestLogin@285d851a]" started-at="2018-02-07T17:25:22Z" name="init" finished-at="2018-02-07T17:25:28Z" duration-ms="5952" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="UserInformation()[pri:1, instance:TestCases.TestLogin@285d851a]" started-at="2018-02-07T17:25:28Z" name="UserInformation" finished-at="2018-02-07T17:25:34Z" duration-ms="6414" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UserInformation -->
+        <test-method signature="RememberLogin()[pri:2, instance:TestCases.TestLogin@285d851a]" started-at="2018-02-07T17:25:34Z" name="RememberLogin" finished-at="2018-02-07T17:25:46Z" duration-ms="11562" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- RememberLogin -->
+      </class> <!-- TestCases.TestLogin -->
+    </test> <!-- Test Login Information -->
+    <test started-at="2018-02-07T16:25:46Z" name="Test Password Change" finished-at="2018-02-07T16:26:12Z" duration-ms="26392">
+      <class name="TestCases.TestPassword">
+        <test-method is-config="true" signature="init()[pri:0, instance:TestCases.TestPassword@7f811d00]" started-at="2018-02-07T17:25:46Z" name="init" finished-at="2018-02-07T17:25:51Z" duration-ms="5810" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="Login()[pri:1, instance:TestCases.TestPassword@7f811d00]" started-at="2018-02-07T17:25:51Z" name="Login" finished-at="2018-02-07T17:25:55Z" duration-ms="3746" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method signature="PasswordInformation()[pri:2, instance:TestCases.TestPassword@7f811d00]" started-at="2018-02-07T17:25:55Z" name="PasswordInformation" finished-at="2018-02-07T17:25:56Z" duration-ms="968" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- PasswordInformation -->
+        <test-method signature="PasswordChange()[pri:3, instance:TestCases.TestPassword@7f811d00]" started-at="2018-02-07T17:25:56Z" name="PasswordChange" finished-at="2018-02-07T17:26:09Z" duration-ms="13271" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- PasswordChange -->
+        <test-method signature="Logout()[pri:4, instance:TestCases.TestPassword@7f811d00]" started-at="2018-02-07T17:26:09Z" name="Logout" finished-at="2018-02-07T17:26:12Z" duration-ms="2405" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Logout -->
+        <test-method is-config="true" signature="quit()[pri:0, instance:TestCases.TestPassword@7f811d00]" started-at="2018-02-07T17:26:12Z" name="quit" finished-at="2018-02-07T17:26:12Z" duration-ms="178" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quit -->
+      </class> <!-- TestCases.TestPassword -->
+    </test> <!-- Test Password Change -->
+    <test started-at="2018-02-07T16:26:12Z" name="Test New User Registration" finished-at="2018-02-07T16:26:41Z" duration-ms="28707">
+      <class name="TestCases.TestRegisterUser">
+        <test-method is-config="true" signature="init()[pri:0, instance:TestCases.TestRegisterUser@a486d78]" started-at="2018-02-07T17:26:12Z" name="init" finished-at="2018-02-07T17:26:18Z" duration-ms="6243" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="Register()[pri:1, instance:TestCases.TestRegisterUser@a486d78]" started-at="2018-02-07T17:26:18Z" name="Register" finished-at="2018-02-07T17:26:21Z" duration-ms="2617" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Register -->
+        <test-method signature="NewUserInformation()[pri:2, instance:TestCases.TestRegisterUser@a486d78]" started-at="2018-02-07T17:26:21Z" name="NewUserInformation" finished-at="2018-02-07T17:26:27Z" duration-ms="6089" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NewUserInformation -->
+        <test-method signature="NewEmailInformation()[pri:3, instance:TestCases.TestRegisterUser@a486d78]" started-at="2018-02-07T17:26:27Z" name="NewEmailInformation" finished-at="2018-02-07T17:26:31Z" duration-ms="4425" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NewEmailInformation -->
+        <test-method signature="NewPasswordInformation()[pri:4, instance:TestCases.TestRegisterUser@a486d78]" started-at="2018-02-07T17:26:31Z" name="NewPasswordInformation" finished-at="2018-02-07T17:26:41Z" duration-ms="9170" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NewPasswordInformation -->
+        <test-method is-config="true" signature="quit()[pri:0, instance:TestCases.TestRegisterUser@a486d78]" started-at="2018-02-07T17:26:41Z" name="quit" finished-at="2018-02-07T17:26:41Z" duration-ms="156" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quit -->
+      </class> <!-- TestCases.TestRegisterUser -->
+    </test> <!-- Test New User Registration -->
+    <test started-at="2018-02-07T16:26:41Z" name="Test Account Information" finished-at="2018-02-07T16:27:07Z" duration-ms="26207">
+      <class name="TestCases.TestAccountInformation">
+        <test-method is-config="true" signature="init()[pri:0, instance:TestCases.TestAccountInformation@f415a95]" started-at="2018-02-07T17:26:41Z" name="init" finished-at="2018-02-07T17:26:46Z" duration-ms="5769" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="Login()[pri:1, instance:TestCases.TestAccountInformation@f415a95]" started-at="2018-02-07T17:26:46Z" name="Login" finished-at="2018-02-07T17:26:50Z" duration-ms="3675" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method signature="AccountInformation()[pri:2, instance:TestCases.TestAccountInformation@f415a95]" started-at="2018-02-07T17:26:50Z" name="AccountInformation" finished-at="2018-02-07T17:26:51Z" duration-ms="1077" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AccountInformation -->
+        <test-method signature="ChangeAccountInformation()[pri:3, instance:TestCases.TestAccountInformation@f415a95]" started-at="2018-02-07T17:26:51Z" name="ChangeAccountInformation" finished-at="2018-02-07T17:26:53Z" duration-ms="2176" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ChangeAccountInformation -->
+        <test-method signature="ChangeAccountFirstName()[pri:4, instance:TestCases.TestAccountInformation@f415a95]" started-at="2018-02-07T17:26:53Z" name="ChangeAccountFirstName" finished-at="2018-02-07T17:26:56Z" duration-ms="2883" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ChangeAccountFirstName -->
+        <test-method signature="ChangeAccountLastName()[pri:5, instance:TestCases.TestAccountInformation@f415a95]" started-at="2018-02-07T17:26:56Z" name="ChangeAccountLastName" finished-at="2018-02-07T17:26:59Z" duration-ms="2967" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ChangeAccountLastName -->
+        <test-method signature="ChangeAccountEmail()[pri:6, instance:TestCases.TestAccountInformation@f415a95]" started-at="2018-02-07T17:26:59Z" name="ChangeAccountEmail" finished-at="2018-02-07T17:27:04Z" duration-ms="4980" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ChangeAccountEmail -->
+        <test-method signature="ChangeAccountLanguage()[pri:7, instance:TestCases.TestAccountInformation@f415a95]" started-at="2018-02-07T17:27:04Z" name="ChangeAccountLanguage" finished-at="2018-02-07T17:27:04Z" duration-ms="52" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ChangeAccountLanguage -->
+        <test-method signature="Logout()[pri:8, instance:TestCases.TestAccountInformation@f415a95]" started-at="2018-02-07T17:27:04Z" name="Logout" finished-at="2018-02-07T17:27:07Z" duration-ms="2367" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Logout -->
+        <test-method is-config="true" signature="quit()[pri:0, instance:TestCases.TestAccountInformation@f415a95]" started-at="2018-02-07T17:27:07Z" name="quit" finished-at="2018-02-07T17:27:07Z" duration-ms="246" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quit -->
+      </class> <!-- TestCases.TestAccountInformation -->
+    </test> <!-- Test Account Information -->
+    <test started-at="2018-02-07T16:27:07Z" name="Test Data format needed to create Branch and Staff" finished-at="2018-02-07T16:27:39Z" duration-ms="32581">
+      <class name="TestCases.TestBranchStaffCreationInfo">
+        <test-method is-config="true" signature="init()[pri:0, instance:TestCases.TestBranchStaffCreationInfo@26be6ca7]" started-at="2018-02-07T17:27:07Z" name="init" finished-at="2018-02-07T17:27:13Z" duration-ms="5779" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="Login()[pri:1, instance:TestCases.TestBranchStaffCreationInfo@26be6ca7]" started-at="2018-02-07T17:27:13Z" name="Login" finished-at="2018-02-07T17:27:16Z" duration-ms="3747" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method signature="BranchCreationInfo()[pri:2, instance:TestCases.TestBranchStaffCreationInfo@26be6ca7]" started-at="2018-02-07T17:27:16Z" name="BranchCreationInfo" finished-at="2018-02-07T17:27:28Z" duration-ms="11481" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- BranchCreationInfo -->
+        <test-method signature="StaffCreationInfo()[pri:3, instance:TestCases.TestBranchStaffCreationInfo@26be6ca7]" started-at="2018-02-07T17:27:28Z" name="StaffCreationInfo" finished-at="2018-02-07T17:27:37Z" duration-ms="9032" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- StaffCreationInfo -->
+        <test-method signature="Logout()[pri:4, instance:TestCases.TestBranchStaffCreationInfo@26be6ca7]" started-at="2018-02-07T17:27:37Z" name="Logout" finished-at="2018-02-07T17:27:39Z" duration-ms="2363" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Logout -->
+        <test-method is-config="true" signature="quit()[pri:0, instance:TestCases.TestBranchStaffCreationInfo@26be6ca7]" started-at="2018-02-07T17:27:39Z" name="quit" finished-at="2018-02-07T17:27:39Z" duration-ms="165" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quit -->
+      </class> <!-- TestCases.TestBranchStaffCreationInfo -->
+    </test> <!-- Test Data format needed to create Branch and Staff -->
+    <test started-at="2018-02-07T16:27:39Z" name="Test Create" finished-at="2018-02-07T16:28:03Z" duration-ms="23577">
+      <class name="TestCases.TestCreate">
+        <test-method is-config="true" signature="init()[pri:0, instance:TestCases.TestCreate@770d0ea6]" started-at="2018-02-07T17:27:39Z" name="init" finished-at="2018-02-07T17:27:45Z" duration-ms="5700" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="Login()[pri:1, instance:TestCases.TestCreate@770d0ea6]" started-at="2018-02-07T17:27:45Z" name="Login" finished-at="2018-02-07T17:27:49Z" duration-ms="3726" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method signature="Branch()[pri:2, instance:TestCases.TestCreate@770d0ea6]" started-at="2018-02-07T17:27:49Z" name="Branch" finished-at="2018-02-07T17:27:54Z" duration-ms="5102" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Branch -->
+        <test-method signature="Staff()[pri:3, instance:TestCases.TestCreate@770d0ea6]" started-at="2018-02-07T17:27:54Z" name="Staff" finished-at="2018-02-07T17:28:01Z" duration-ms="6544" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Staff -->
+        <test-method signature="Logout()[pri:4, instance:TestCases.TestCreate@770d0ea6]" started-at="2018-02-07T17:28:01Z" name="Logout" finished-at="2018-02-07T17:28:03Z" duration-ms="2368" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Logout -->
+        <test-method is-config="true" signature="quit()[pri:0, instance:TestCases.TestCreate@770d0ea6]" started-at="2018-02-07T17:28:03Z" name="quit" finished-at="2018-02-07T17:28:03Z" duration-ms="133" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quit -->
+      </class> <!-- TestCases.TestCreate -->
+    </test> <!-- Test Create -->
+    <test started-at="2018-02-07T16:28:03Z" name="Test View" finished-at="2018-02-07T16:28:22Z" duration-ms="19330">
+      <class name="TestCases.TestView">
+        <test-method is-config="true" signature="init()[pri:0, instance:TestCases.TestView@455351c4]" started-at="2018-02-07T17:28:03Z" name="init" finished-at="2018-02-07T17:28:09Z" duration-ms="5717" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="Login()[pri:1, instance:TestCases.TestView@455351c4]" started-at="2018-02-07T17:28:09Z" name="Login" finished-at="2018-02-07T17:28:12Z" duration-ms="3655" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method signature="ViewBranch()[pri:2, instance:TestCases.TestView@455351c4]" started-at="2018-02-07T17:28:12Z" name="ViewBranch" finished-at="2018-02-07T17:28:16Z" duration-ms="3718" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ViewBranch -->
+        <test-method signature="ViewStaff()[pri:3, instance:TestCases.TestView@455351c4]" started-at="2018-02-07T17:28:16Z" name="ViewStaff" finished-at="2018-02-07T17:28:20Z" duration-ms="3688" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ViewStaff -->
+        <test-method signature="Logout()[pri:4, instance:TestCases.TestView@455351c4]" started-at="2018-02-07T17:28:20Z" name="Logout" finished-at="2018-02-07T17:28:22Z" duration-ms="2414" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Logout -->
+        <test-method is-config="true" signature="quit()[pri:0, instance:TestCases.TestView@455351c4]" started-at="2018-02-07T17:28:22Z" name="quit" finished-at="2018-02-07T17:28:22Z" duration-ms="129" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quit -->
+      </class> <!-- TestCases.TestView -->
+    </test> <!-- Test View -->
+    <test started-at="2018-02-07T16:28:22Z" name="Test Edit" finished-at="2018-02-07T16:28:46Z" duration-ms="23134">
+      <class name="TestCases.TestEdit">
+        <test-method is-config="true" signature="init()[pri:0, instance:TestCases.TestEdit@e6516e]" started-at="2018-02-07T17:28:22Z" name="init" finished-at="2018-02-07T17:28:28Z" duration-ms="5757" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="Login()[pri:1, instance:TestCases.TestEdit@e6516e]" started-at="2018-02-07T17:28:28Z" name="Login" finished-at="2018-02-07T17:28:32Z" duration-ms="3646" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method signature="EditBranch()[pri:2, instance:TestCases.TestEdit@e6516e]" started-at="2018-02-07T17:28:32Z" name="EditBranch" finished-at="2018-02-07T17:28:37Z" duration-ms="5604" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- EditBranch -->
+        <test-method signature="EditStaff()[pri:3, instance:TestCases.TestEdit@e6516e]" started-at="2018-02-07T17:28:37Z" name="EditStaff" finished-at="2018-02-07T17:28:43Z" duration-ms="5597" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- EditStaff -->
+        <test-method signature="Logout()[pri:4, instance:TestCases.TestEdit@e6516e]" started-at="2018-02-07T17:28:43Z" name="Logout" finished-at="2018-02-07T17:28:45Z" duration-ms="2364" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Logout -->
+        <test-method is-config="true" signature="quit()[pri:0, instance:TestCases.TestEdit@e6516e]" started-at="2018-02-07T17:28:45Z" name="quit" finished-at="2018-02-07T17:28:46Z" duration-ms="160" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quit -->
+      </class> <!-- TestCases.TestEdit -->
+    </test> <!-- Test Edit -->
+    <test started-at="2018-02-07T16:28:46Z" name="Test Delete" finished-at="2018-02-07T16:29:13Z" duration-ms="27604">
+      <class name="TestCases.TestDelete">
+        <test-method is-config="true" signature="init()[pri:0, instance:TestCases.TestDelete@6e57e95e]" started-at="2018-02-07T17:28:46Z" name="init" finished-at="2018-02-07T17:28:51Z" duration-ms="5837" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="Login()[pri:1, instance:TestCases.TestDelete@6e57e95e]" started-at="2018-02-07T17:28:51Z" name="Login" finished-at="2018-02-07T17:28:55Z" duration-ms="3711" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method signature="DeteleBranchFirst()[pri:2, instance:TestCases.TestDelete@6e57e95e]" started-at="2018-02-07T17:28:55Z" name="DeteleBranchFirst" finished-at="2018-02-07T17:29:01Z" duration-ms="5733" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- DeteleBranchFirst -->
+        <test-method signature="DeleteStaff()[pri:3, instance:TestCases.TestDelete@6e57e95e]" started-at="2018-02-07T17:29:01Z" name="DeleteStaff" finished-at="2018-02-07T17:29:05Z" duration-ms="3928" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- DeleteStaff -->
+        <test-method signature="DeleteBranch()[pri:4, instance:TestCases.TestDelete@6e57e95e]" started-at="2018-02-07T17:29:05Z" name="DeleteBranch" finished-at="2018-02-07T17:29:09Z" duration-ms="4371" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- DeleteBranch -->
+        <test-method signature="Logout()[pri:5, instance:TestCases.TestDelete@6e57e95e]" started-at="2018-02-07T17:29:09Z" name="Logout" finished-at="2018-02-07T17:29:13Z" duration-ms="3863" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Logout -->
+        <test-method is-config="true" signature="quit()[pri:0, instance:TestCases.TestDelete@6e57e95e]" started-at="2018-02-07T17:29:13Z" name="quit" finished-at="2018-02-07T17:29:13Z" duration-ms="149" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quit -->
+      </class> <!-- TestCases.TestDelete -->
+    </test> <!-- Test Delete -->
+    <test started-at="2018-02-07T16:29:13Z" name="Test Query for Branch and Staff" finished-at="2018-02-07T16:30:04Z" duration-ms="51218">
+      <class name="TestCases.TestQuery">
+        <test-method is-config="true" signature="init()[pri:0, instance:TestCases.TestQuery@6928f576]" started-at="2018-02-07T17:29:13Z" name="init" finished-at="2018-02-07T17:29:17Z" duration-ms="3751" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method signature="PrepareData()[pri:1, instance:TestCases.TestQuery@6928f576]" started-at="2018-02-07T17:29:17Z" name="PrepareData" finished-at="2018-02-07T17:29:48Z" duration-ms="31506" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- PrepareData -->
+        <test-method signature="QueryBranch()[pri:2, instance:TestCases.TestQuery@6928f576]" started-at="2018-02-07T17:29:48Z" name="QueryBranch" finished-at="2018-02-07T17:29:55Z" duration-ms="6935" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- QueryBranch -->
+        <test-method signature="QueryStaff()[pri:3, instance:TestCases.TestQuery@6928f576]" started-at="2018-02-07T17:29:55Z" name="QueryStaff" finished-at="2018-02-07T17:30:02Z" duration-ms="6505" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- QueryStaff -->
+        <test-method signature="Logout()[pri:4, instance:TestCases.TestQuery@6928f576]" started-at="2018-02-07T17:30:02Z" name="Logout" finished-at="2018-02-07T17:30:04Z" duration-ms="2335" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Logout -->
+        <test-method is-config="true" signature="quit()[pri:0, instance:TestCases.TestQuery@6928f576]" started-at="2018-02-07T17:30:04Z" name="quit" finished-at="2018-02-07T17:30:04Z" duration-ms="179" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- quit -->
+      </class> <!-- TestCases.TestQuery -->
+    </test> <!-- Test Query for Branch and Staff -->
+  </suite> <!-- Test Cases -->
+</testng-results>

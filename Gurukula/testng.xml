@@ -1,0 +1,54 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Test Cases">
+	<test name="Test Login Information">
+		<classes>
+			<class name="TestCases.TestLogin" />
+		</classes>
+	</test>
+	<test name="Test Password Change">
+		<classes>
+			<class name="TestCases.TestPassword" />
+		</classes>
+	</test>
+	<test name="Test New User Registration">
+		<classes>
+			<class name="TestCases.TestRegisterUser" />
+		</classes>
+	</test>
+	<test name="Test Account Information">
+		<classes>
+			<class name="TestCases.TestAccountInformation" />
+		</classes>
+	</test>
+	<test name="Test Data format needed to create Branch and Staff">
+		<classes>
+			<class name="TestCases.TestBranchStaffCreationInfo" />
+		</classes>
+	</test>	
+	<test name="Test Create">
+		<classes>
+			<class name="TestCases.TestCreate" />
+		</classes>
+	</test>
+	<test name="Test View">
+		<classes>
+			<class name="TestCases.TestView" />
+		</classes>
+	</test>
+	<test name="Test Edit">
+		<classes>
+			<class name="TestCases.TestEdit" />
+		</classes>
+	</test>
+	<test name="Test Delete">
+		<classes>
+			<class name="TestCases.TestDelete" />
+		</classes>
+	</test>
+	<test name="Test Query for Branch and Staff">
+		<classes>
+			<class name="TestCases.TestQuery" />
+		</classes>
+	</test>
+</suite>

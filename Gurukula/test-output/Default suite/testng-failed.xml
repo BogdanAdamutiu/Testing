@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="-1" name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
+  <test name="Default test(failed)">
+    <classes>
+      <class name="TestCases.TestAccountInformation">
+        <methods>
+          <include name="Login"/>
+          <include name="ChangeAccountInformation"/>
+          <include name="Logout"/>
+          <include name="ChangeAccountLastName"/>
+          <include name="init"/>
+          <include name="AccountInformation"/>
+          <include name="ChangeAccountEmail"/>
+          <include name="ChangeAccountLanguage"/>
+          <include name="quit"/>
+          <include name="ChangeAccountFirstName"/>
+        </methods>
+      </class> <!-- TestCases.TestAccountInformation -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
