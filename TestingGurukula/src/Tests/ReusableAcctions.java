@@ -2,7 +2,6 @@ package Tests;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -14,12 +13,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 public class ReusableAcctions {
 	
-	FirefoxDriver Mozila = new FirefoxDriver();
+	FirefoxDriver Mozila = new FirefoxDriver();	
+	String Status = "";
+	String ID = "";
+	String Branch = "";	
+	String Code = "";
+	String Staff = "";
+	String Results = "0";
+	int Searches = 1;
+	int NrOfResults = 0;
+	int FoundResult = 0;
 		
 	public void ResultsFile(String Location) throws IOException {
         XSSFSheet sheet = Tests.Constants.workbook.createSheet("Gurukula");
         //create table header and write test cases
-        for (int r = 0; r < 12; r++) {
+        for (int r = 0; r < 11; r++) {
         	Row row = sheet.createRow(r);
             for (int c = 0; c < 6; c++) {
             	Cell cell = row.createCell(c);
@@ -70,10 +78,6 @@ public class ReusableAcctions {
 					case 10: if (c == 0) {
 								cell.setCellValue("Query Branch and Staff");
 							}					
-					break;
-					case 11: if (c == 4) {
-								cell.setCellValue("Total");
-							}
 					break;
             	}
             } 
@@ -201,4 +205,61 @@ public class ReusableAcctions {
 		Thread.sleep(5000);
 	}
 	
+	//checks if the branch query works
+	public void QueryBranch(String SearchCriteria) throws InterruptedException, IOException {
+		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
+		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).sendKeys(SearchCriteria);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
+		Thread.sleep(1000);
+		
+		
+		
+			
+		ID = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[1]/a")).getAttribute("innerText");
+		Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
+		Code = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
+		if (ID.equalsIgnoreCase(SearchCriteria) || Branch.equalsIgnoreCase(SearchCriteria) || Code.equalsIgnoreCase(SearchCriteria)) {
+			//this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"Passed"); 
+			System.out.print("ok " + Searches);
+			Searches ++;				
+		}
+		else if (ID == null || Branch == null || Code == null){
+			//this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"Failed");
+			System.out.print("not ok " + Searches);
+			Searches ++;
+		}		
+	}
+		
+
+	//checks if the staff query works
+	public void QueryStaff(String SearchCriteria) throws InterruptedException, IOException {
+		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
+		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).clear();
+		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).sendKeys(SearchCriteria);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
+		Thread.sleep(1000);
+		
+		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
+		NrOfResults = Integer.parseInt(Results);
+		if (NrOfResults == 0) {
+			this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"No results");
+		}
+		else if (NrOfResults >= 1) {
+			for (int i = 1; i <= NrOfResults; i++) {
+				ID = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr[" + i + "]/td[1]/a")).getAttribute("innerText");
+				Staff = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr[" + i + "]/td[2]")).getAttribute("innerText");
+				if (ID.equalsIgnoreCase(SearchCriteria) || Staff.equalsIgnoreCase(SearchCriteria)) {
+					this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"Found a match");
+					Searches ++;
+					FoundResult++;
+				}						
+			}
+			if (FoundResult == 0) {
+				this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"No results");
+				Searches ++;				
+			}
+		}	
+	}	
 }
