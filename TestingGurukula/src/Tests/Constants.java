@@ -27,7 +27,7 @@ public class Constants {
 	public static final String Short = "test";
 	public static final String Upper = "TESTING";
 	public static final String Combined = "1t2e3s4t";
-	public static final String Special = "!@#$%";
+	public static final String Special = "!@#$%^";
 	public static final String Long = "thisusernameshouldbetolongtobeausernamewithmorethen";
 		
 	//constants used for testing email address
