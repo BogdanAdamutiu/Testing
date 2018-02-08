@@ -13,6 +13,8 @@ public class RegisterUser {
 	//registers a new user
 	//registration of new users doesn't work, but this test case is considered passed because all the user information are correct
 	public void Register() throws InterruptedException, IOException {
+		Action.OpenBrowser();
+		Thread.sleep(1000);
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div[2]/a")).click();
 		Thread.sleep(1500);
 			
@@ -75,10 +77,10 @@ public class RegisterUser {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[4]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,3,4,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,3,4, "Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,3,4,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,3,4, "Passed");
 		}	
 			
 		//checks if a long name is allowed as user name
@@ -99,7 +101,7 @@ public class RegisterUser {
 		Thread.sleep(500);
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).sendKeys(Tests.Constants.Combined);
 		Thread.sleep(500);
-		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[4]]")).getAttribute("hidden");
+		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[4]")).getAttribute("hidden");
 		if (Status != null) {
 			Action.WriteResults(Tests.Constants.ExcelLocation,3,6,"Passed");
 		}
@@ -169,12 +171,12 @@ public class RegisterUser {
 		//checks if letters and numbers are allowed as a password
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/input")).sendKeys(Tests.Constants.Combined);
 		Thread.sleep(500);
-		Status =Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div[1]/p[2]")).getAttribute("hidden");
+		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div[1]/p[2]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,3,11,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,3,11, "Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,3,11,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,3,11, "Passed");
 		}
 		Thread.sleep(500);
 			
@@ -185,10 +187,10 @@ public class RegisterUser {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div[1]/p[2]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,3,12,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,3,12,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,3,12,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,3,12,"Passed");
 		}
 		Thread.sleep(500);
 			
@@ -199,10 +201,10 @@ public class RegisterUser {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div[1]/p[2]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,3,13,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,3,13,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,3,13,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,3,13,"Passed");
 		}
 		Thread.sleep(500);
 			
