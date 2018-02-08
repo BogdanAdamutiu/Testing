@@ -5,9 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
-import javax.naming.spi.DirStateFactory.Result;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -190,76 +187,104 @@ public class ReusableAcctions {
 		}
 	}
 	
-	public void ViewBranch() throws InterruptedException, IOException {		
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[1]")).click();
-		Thread.sleep(1000);
-		
-		Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/h2/span")).getAttribute("innerText");
-		Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[1]/td[2]/input")).getAttribute("defaultValue");
-		Code = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[2]/td[2]/input")).getAttribute("defaultValue");
-		if (Status.equalsIgnoreCase("Branch") && 
-			(Branch.equalsIgnoreCase(Tests.Constants.Branch)) && 
-			Code.equalsIgnoreCase(Tests.Constants.Code)) {
-			this.WriteResults(Tests.Constants.ExcelLocation,7,1,"Passed");
+	public void ViewBranch() throws InterruptedException, IOException {	
+		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
+		NrOfResults = Integer.parseInt(Results);
+		if (NrOfResults == 0) {
+			this.WriteResults(Tests.Constants.ExcelLocation,7,1,"You tried to view a non existing branch");
 		}
 		else {
-			this.WriteResults(Tests.Constants.ExcelLocation,7,1,"Failed");
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[1]")).click();
+			Thread.sleep(1000);
+		
+			Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/h2/span")).getAttribute("innerText");
+			Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[1]/td[2]/input")).getAttribute("defaultValue");
+			Code = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[2]/td[2]/input")).getAttribute("defaultValue");
+			if (Status.equalsIgnoreCase("Branch") && 
+				(Branch.equalsIgnoreCase(Tests.Constants.Branch)) && 
+				Code.equalsIgnoreCase(Tests.Constants.Code)) {
+				this.WriteResults(Tests.Constants.ExcelLocation,7,1,"Passed");
+			}
+			else {
+				this.WriteResults(Tests.Constants.ExcelLocation,7,1,"Failed");
+			}
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/button")).click();
 		}
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/button")).click();
 	}
 	
 	public void ViewStaff() throws InterruptedException, IOException {		
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[1]")).click();
-		Thread.sleep(1000);
-		
-		Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/h2/span")).getAttribute("innerText");
-		Staff = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[1]/td[2]/input")).getAttribute("defaultValue");
-		Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[2]/td[2]/input")).getAttribute("defaultValue");
-		if (Status.equalsIgnoreCase("Staff") && 
-			Staff.equalsIgnoreCase(Tests.Constants.Staff) && 
-			Branch.equalsIgnoreCase(Tests.Constants.Branch)) {
-			this.WriteResults(Tests.Constants.ExcelLocation,7,2,"Passed");
+		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
+		NrOfResults = Integer.parseInt(Results);
+		if (NrOfResults == 0) {
+			this.WriteResults(Tests.Constants.ExcelLocation,7,2,"You tried to view a non existing staff");
 		}
 		else {
-			this.WriteResults(Tests.Constants.ExcelLocation,7,2,"Failed");
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[1]")).click();
+			Thread.sleep(1000);
+		
+			Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/h2/span")).getAttribute("innerText");
+			Staff = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[1]/td[2]/input")).getAttribute("defaultValue");
+			Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[2]/td[2]/input")).getAttribute("defaultValue");
+			if (Status.equalsIgnoreCase("Staff") && 
+				Staff.equalsIgnoreCase(Tests.Constants.Staff) && 
+				Branch.equalsIgnoreCase(Tests.Constants.Branch)) {
+				this.WriteResults(Tests.Constants.ExcelLocation,7,2,"Passed");
+			}
+			else {
+				this.WriteResults(Tests.Constants.ExcelLocation,7,2,"Failed");
+			}
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/button")).click();
 		}
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/button")).click();
 	}
 	
 	public void EditBranch(String BranchName, String BranchCode, int RowResults, int ColumnResults) throws InterruptedException, IOException {		
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[2]")).click();
-		Thread.sleep(1000);
-		
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).clear();
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/input")).clear();
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(BranchName);
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/input")).sendKeys(BranchCode);
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
-		Thread.sleep(1500);
-		
-		Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
-		Code = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
-		if (Branch.equalsIgnoreCase(Tests.Constants.NewBranch) && Code.equalsIgnoreCase(Tests.Constants.NewCode)) {
-			this.WriteResults(Tests.Constants.ExcelLocation,RowResults,ColumnResults,"Passed");
+		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
+		NrOfResults = Integer.parseInt(Results);
+		if (NrOfResults == 0) {
+			this.WriteResults(Tests.Constants.ExcelLocation,RowResults,ColumnResults,"You tried to edit a non existing branch");
 		}
 		else {
-			this.WriteResults(Tests.Constants.ExcelLocation,RowResults,ColumnResults,"Failed");
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[2]")).click();
+			Thread.sleep(1000);
+		
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).clear();
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/input")).clear();
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(BranchName);
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/input")).sendKeys(BranchCode);
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
+			Thread.sleep(1500);
+		
+			Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
+			Code = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
+			if (Branch.equalsIgnoreCase(Tests.Constants.NewBranch) && Code.equalsIgnoreCase(Tests.Constants.NewCode)) {
+				this.WriteResults(Tests.Constants.ExcelLocation,RowResults,ColumnResults,"Passed");
+			}
+			else {
+				this.WriteResults(Tests.Constants.ExcelLocation,RowResults,ColumnResults,"Failed");
+			}
 		}
 	}
 	
 	public void EditStaff(String StaffName, int RowResult, int ColumnResult) throws InterruptedException, IOException {	
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).clear();
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(StaffName);
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
-		Thread.sleep(1500);
-		
-		Staff = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
-		Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
-		if (Staff.equalsIgnoreCase(StaffName) && Branch.equalsIgnoreCase(Tests.Constants.NewBranch)) {
-			WriteResults(Tests.Constants.ExcelLocation,RowResult,ColumnResult,"Passed");
+		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
+		NrOfResults = Integer.parseInt(Results);
+		if (NrOfResults == 0) {
+			this.WriteResults(Tests.Constants.ExcelLocation,RowResult,ColumnResult,"You tried to edit a non existing staff");
 		}
 		else {
-			WriteResults(Tests.Constants.ExcelLocation,RowResult,ColumnResult,"Failed");
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).clear();
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(StaffName);
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
+			Thread.sleep(1500);
+		
+			Staff = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
+			Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
+			if (Staff.equalsIgnoreCase(StaffName) && Branch.equalsIgnoreCase(Tests.Constants.NewBranch)) {
+				this.WriteResults(Tests.Constants.ExcelLocation,RowResult,ColumnResult,"Passed");
+			}
+			else {
+				this.WriteResults(Tests.Constants.ExcelLocation,RowResult,ColumnResult,"Failed");
+			}
 		}
 	}
 	
@@ -326,43 +351,57 @@ public class ReusableAcctions {
 	}
 	
 	public void DeteleBranch(int StaffDeleted) throws InterruptedException, IOException {		
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).click();
-		Thread.sleep(500);
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[2]")).click();
-		Thread.sleep(1000);
-		if (StaffDeleted == 0) {
-			Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[2]")).getAttribute("disabled");
-			if (Status != null) {
-				this.WriteResults(Tests.Constants.ExcelLocation,9,1,"Failed");
-			}
-			else {
-				this.WriteResults(Tests.Constants.ExcelLocation,9,1,"Passed");
-				this.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[1]")).click();
-				Thread.sleep(1000);
-			}
+		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
+		NrOfResults = Integer.parseInt(Results);
+		if (NrOfResults == 0) {
+			this.WriteResults(Tests.Constants.ExcelLocation,9,1,"You tried to delete a non existing branch");
 		}
-		else if (StaffDeleted == 1) {
-			Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).getAttribute("disabled");
-			if (Status != null) {
-				this.WriteResults(Tests.Constants.ExcelLocation,9,3,"Passed");
+		else {
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).click();
+			Thread.sleep(500);
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[2]")).click();
+			Thread.sleep(1000);
+			if (StaffDeleted == 0) {
+				Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[2]")).getAttribute("disabled");
+				if (Status != null) {
+					this.WriteResults(Tests.Constants.ExcelLocation,9,1,"Failed");
+				}
+				else {
+					this.WriteResults(Tests.Constants.ExcelLocation,9,1,"Passed");
+					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[1]")).click();
+					Thread.sleep(1000);
+				}
 			}
-			else {
-				this.WriteResults(Tests.Constants.ExcelLocation,9,3,"Failed");
+			else if (StaffDeleted == 1) {
+				Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).getAttribute("disabled");
+				if (Status != null) {
+					this.WriteResults(Tests.Constants.ExcelLocation,9,3,"Passed");
+				}
+				else {
+					this.WriteResults(Tests.Constants.ExcelLocation,9,3,"Failed");
+				}
 			}
 		}
 	}
 	
 	public void DeleteStaff() throws InterruptedException, IOException {		
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).click();
-		Thread.sleep(500);		
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[2]")).click();
-		Thread.sleep(500);
-		Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).getAttribute("disabled");
-		if (Status != null) {
-			this.WriteResults(Tests.Constants.ExcelLocation,9,2,"Passed");
+		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
+		NrOfResults = Integer.parseInt(Results);
+		if (NrOfResults == 0) {
+			this.WriteResults(Tests.Constants.ExcelLocation,9,2,"You tried to delete a non existing staff");
 		}
 		else {
-			this.WriteResults(Tests.Constants.ExcelLocation,9,2,"Failed");
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).click();
+			Thread.sleep(500);		
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[2]")).click();
+			Thread.sleep(500);
+			Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).getAttribute("disabled");
+			if (Status != null) {
+				this.WriteResults(Tests.Constants.ExcelLocation,9,2,"Passed");
+			}
+			else {
+				this.WriteResults(Tests.Constants.ExcelLocation,9,2,"Failed");
+			}
 		}
 	}
 	
