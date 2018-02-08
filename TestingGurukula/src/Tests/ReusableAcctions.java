@@ -190,6 +190,42 @@ public class ReusableAcctions {
 		}
 	}
 	
+	public void ViewBranch() throws InterruptedException, IOException {		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[1]")).click();
+		Thread.sleep(1000);
+		
+		Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/h2/span")).getAttribute("innerText");
+		Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[1]/td[2]/input")).getAttribute("defaultValue");
+		Code = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[2]/td[2]/input")).getAttribute("defaultValue");
+		if (Status.equalsIgnoreCase("Branch") && 
+			(Branch.equalsIgnoreCase(Tests.Constants.Branch)) && 
+			Code.equalsIgnoreCase(Tests.Constants.Code)) {
+			this.WriteResults(Tests.Constants.ExcelLocation,7,1,"Passed");
+		}
+		else {
+			this.WriteResults(Tests.Constants.ExcelLocation,7,1,"Failed");
+		}
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/button")).click();
+	}
+	
+	public void ViewStaff() throws InterruptedException, IOException {		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[1]")).click();
+		Thread.sleep(1000);
+		
+		Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/h2/span")).getAttribute("innerText");
+		Staff = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[1]/td[2]/input")).getAttribute("defaultValue");
+		Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/table/tbody/tr[2]/td[2]/input")).getAttribute("defaultValue");
+		if (Status.equalsIgnoreCase("Staff") && 
+			Staff.equalsIgnoreCase(Tests.Constants.Staff) && 
+			Branch.equalsIgnoreCase(Tests.Constants.Branch)) {
+			this.WriteResults(Tests.Constants.ExcelLocation,7,2,"Passed");
+		}
+		else {
+			this.WriteResults(Tests.Constants.ExcelLocation,7,2,"Failed");
+		}
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/button")).click();
+	}
+	
 	public void EditBranch(String BranchName, String BranchCode, int RowResults, int ColumnResults) throws InterruptedException, IOException {		
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[2]")).click();
 		Thread.sleep(1000);
