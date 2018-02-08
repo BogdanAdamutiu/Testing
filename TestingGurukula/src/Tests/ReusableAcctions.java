@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -205,7 +208,6 @@ public class ReusableAcctions {
 		Thread.sleep(5000);
 	}
 	
-	//checks if the branch query works
 	public void QueryBranch(String SearchCriteria) throws InterruptedException, IOException {
 		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).clear();
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
@@ -213,26 +215,30 @@ public class ReusableAcctions {
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
 		Thread.sleep(1000);
 		
-		
-		
-			
-		ID = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[1]/a")).getAttribute("innerText");
-		Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
-		Code = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
-		if (ID.equalsIgnoreCase(SearchCriteria) || Branch.equalsIgnoreCase(SearchCriteria) || Code.equalsIgnoreCase(SearchCriteria)) {
-			//this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"Passed"); 
-			System.out.print("ok " + Searches);
-			Searches ++;				
-		}
-		else if (ID == null || Branch == null || Code == null){
-			//this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"Failed");
-			System.out.print("not ok " + Searches);
+		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
+		NrOfResults = Integer.parseInt(Results);
+		if (NrOfResults == 0) {
+//			this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"No results");
 			Searches ++;
+		}
+		else if (NrOfResults >= 1) {
+			for (int i = 1; i <= NrOfResults; i++) {
+				ID = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr[" + i + "]/td[1]/a")).getAttribute("innerText");
+				Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr[" + i + "]/td[2]")).getAttribute("innerText");
+				Code = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr[" + i + "]/td[3]")).getAttribute("innerText");
+				if (ID.equalsIgnoreCase(SearchCriteria) || Branch.equalsIgnoreCase(SearchCriteria) || Code.equalsIgnoreCase(SearchCriteria)) {
+//					this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"Found a match");
+					Searches ++;
+					FoundResult ++;
+				}						
+			}
+			if (FoundResult == 0) {
+//				this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"No results");
+				Searches ++;				
+			}
 		}		
 	}
 		
-
-	//checks if the staff query works
 	public void QueryStaff(String SearchCriteria) throws InterruptedException, IOException {
 		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).clear();
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
@@ -245,6 +251,7 @@ public class ReusableAcctions {
 		NrOfResults = Integer.parseInt(Results);
 		if (NrOfResults == 0) {
 			this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"No results");
+			Searches ++;
 		}
 		else if (NrOfResults >= 1) {
 			for (int i = 1; i <= NrOfResults; i++) {
