@@ -190,22 +190,41 @@ public class ReusableAcctions {
 		}
 	}
 	
-	public void Logout(int RowLogout, int ColumnLogout) throws InterruptedException, IOException {
-		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/a/span/span[2]")).click();
-		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/ul/li[4]/a/span[2]")).click();
+	public void EditBranch(String BranchName, String BranchCode, int RowResults, int ColumnResults) throws InterruptedException, IOException {		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[2]")).click();
+		Thread.sleep(1000);
+		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(BranchName);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/input")).sendKeys(BranchCode);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
 		Thread.sleep(1500);
-		String Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/h1")).getAttribute("innerText");												
-		if (Status == "Welcome to Gurukula!") {
-			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Passed");
+		
+		Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
+		Code = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
+		if (Branch.equalsIgnoreCase(Tests.Constants.NewBranch) && Code.equalsIgnoreCase(Tests.Constants.NewCode)) {
+			this.WriteResults(Tests.Constants.ExcelLocation,RowResults,ColumnResults,"Passed");
 		}
 		else {
-			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Failed");
+			this.WriteResults(Tests.Constants.ExcelLocation,RowResults,ColumnResults,"Failed");
 		}
 	}
 	
-	public void Close() throws InterruptedException {
-		Mozila.close();
-		Thread.sleep(5000);
+	public void EditStaff(String StaffName, int RowResult, int ColumnResult) throws InterruptedException, IOException {	
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(StaffName);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
+		Thread.sleep(1500);
+		
+		Staff = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
+		Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
+		if (Staff.equalsIgnoreCase(StaffName) && Branch.equalsIgnoreCase(Tests.Constants.NewBranch)) {
+			WriteResults(Tests.Constants.ExcelLocation,RowResult,ColumnResult,"Passed");
+		}
+		else {
+			WriteResults(Tests.Constants.ExcelLocation,RowResult,ColumnResult,"Failed");
+		}
 	}
 	
 	public void QueryBranch(String SearchCriteria) throws InterruptedException, IOException {
@@ -268,5 +287,23 @@ public class ReusableAcctions {
 				Searches ++;				
 			}
 		}	
-	}	
+	}
+	
+	public void Logout(int RowLogout, int ColumnLogout) throws InterruptedException, IOException {
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/a/span/span[2]")).click();
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/ul/li[4]/a/span[2]")).click();
+		Thread.sleep(1500);
+		String Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/h1")).getAttribute("innerText");												
+		if (Status == "Welcome to Gurukula!") {
+			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Passed");
+		}
+		else {
+			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Failed");
+		}
+	}
+	
+	public void Close() throws InterruptedException {
+		Mozila.close();
+		Thread.sleep(5000);
+	}
 }
