@@ -29,7 +29,7 @@ public class ReusableAcctions {
         //create table header and write test cases
         for (int r = 0; r < 11; r++) {
         	Row row = sheet.createRow(r);
-            for (int c = 0; c < 22; c++) {
+            for (int c = 0; c < 23; c++) {
             	Cell cell = row.createCell(c);
             	switch (r) {
 					case 0: if (c == 0) {
@@ -278,6 +278,8 @@ public class ReusableAcctions {
 			this.WriteResults(Tests.Constants.ExcelLocation,RowResult,ColumnResult,"You tried to edit a non existing staff");
 		}
 		else {
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[2]")).click();
+			Thread.sleep(500);
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).clear();
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(StaffName);
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
@@ -373,14 +375,14 @@ public class ReusableAcctions {
 					this.WriteResults(Tests.Constants.ExcelLocation,9,1,"Failed");
 				}
 				else {
-					this.WriteResults(Tests.Constants.ExcelLocation,9,1,"Passed");
+					this.WriteResults(Tests.Constants.ExcelLocation,9,1,"Can't delete branch with staff assigned");
 					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[1]")).click();
 					Thread.sleep(1000);
 				}
 			}
 			else if (StaffDeleted == 1) {
-				Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).getAttribute("disabled");
-				if (Status != null) {
+				Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
+				if (Status.equalsIgnoreCase("0")) {
 					this.WriteResults(Tests.Constants.ExcelLocation,9,3,"Passed");
 				}
 				else {
@@ -401,8 +403,8 @@ public class ReusableAcctions {
 			Thread.sleep(500);		
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[2]")).click();
 			Thread.sleep(500);
-			Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).getAttribute("disabled");
-			if (Status != null) {
+			Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
+			if (Status.equalsIgnoreCase("0")) {
 				this.WriteResults(Tests.Constants.ExcelLocation,9,2,"Passed");
 			}
 			else {
@@ -426,6 +428,6 @@ public class ReusableAcctions {
 	
 	public void Close() throws InterruptedException {
 		Mozila.close();
-		Thread.sleep(5000);
+		Thread.sleep(1500);
 	}
 }
