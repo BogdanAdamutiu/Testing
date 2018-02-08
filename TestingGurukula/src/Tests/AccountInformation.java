@@ -102,10 +102,10 @@ public class AccountInformation {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[1]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,6,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,6,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,6,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,6,"Passed");
 		}
 		
 		//check if a short first name is allowed
@@ -115,10 +115,10 @@ public class AccountInformation {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[1]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,7,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,7,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,7,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,7,"Passed");
 		}
 		
 		//check if a long first name is allowed
@@ -128,10 +128,10 @@ public class AccountInformation {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[1]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,8,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,8,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,8,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,8,"Passed");
 		}
 		
 		//check if a first name with upper case characters is allowed
@@ -141,10 +141,10 @@ public class AccountInformation {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[1]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,9,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,9,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,9,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,9,"Passed");
 		}
 		
 		//check if first name can be made out of numbers and letters
@@ -154,10 +154,10 @@ public class AccountInformation {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[1]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,10,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,10,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,10,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,10,"Passed");
 		}		
 	}
 	
@@ -179,10 +179,10 @@ public class AccountInformation {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[1]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,12,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,12,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,12,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,12,"Passed");
 		}
 		
 		//check if a short last name is allowed
@@ -192,10 +192,10 @@ public class AccountInformation {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[1]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,13,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,13,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,13,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,13,"Passed");
 		}
 		
 		//check if a long last name is allowed
@@ -205,10 +205,10 @@ public class AccountInformation {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[1]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,14,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,14,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,14,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,14,"Passed");
 		}
 		
 		//check if a last name with upper case characters is allowed
@@ -218,10 +218,10 @@ public class AccountInformation {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[1]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,15,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,15,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,15,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,15,"Passed");
 		}
 		
 		//check if last name can be made out of numbers and letters
@@ -231,10 +231,10 @@ public class AccountInformation {
 		Thread.sleep(500);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[1]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,16,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,16,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,4,16,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,4,16,"Passed");
 		}
 	}
 	
