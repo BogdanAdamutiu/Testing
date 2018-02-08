@@ -110,8 +110,8 @@ public class LoginInformation {
 		FirefoxDriver driver = new FirefoxDriver();
 		driver.navigate().to("http://192.168.178.227:8080/");
 		driver.manage().window().maximize();
-		Status = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div[1]/a")).getAttribute("innerText");
-		if (Status.equalsIgnoreCase("Authentication failed!")) {
+		Status = driver.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div[1]/a")).getAttribute("hidden");
+		if (Status != null) {
 			Action.WriteResults(Tests.Constants.ExcelLocation,1,7,"Passed");
 		}	
 		else {
