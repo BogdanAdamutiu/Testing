@@ -2,6 +2,7 @@ package Tests;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -96,6 +97,7 @@ public class ReusableAcctions {
         FileOutputStream output = new FileOutputStream(new File(Location));
         workbook.write(output);
         output.close();
+        workbook.close();
 	}
 	
 	public void OpenBrowser() {
@@ -185,13 +187,13 @@ public class ReusableAcctions {
 		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/a/span/span[2]")).click();
 		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/ul/li[4]/a/span[2]")).click();
 		Thread.sleep(1500);
-//		String Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/h1")).getAttribute("innerText");												
-//		if (Status == "Welcome to Gurukula!") {
-//			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Passed");
-//		}
-//		else {
-//			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Failed");
-//		}
+		String Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/h1")).getAttribute("innerText");												
+		if (Status == "Welcome to Gurukula!") {
+			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Passed");
+		}
+		else {
+			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Failed");
+		}
 	}
 	
 	public void Close() throws InterruptedException {
