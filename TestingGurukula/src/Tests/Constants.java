@@ -30,12 +30,17 @@ public class Constants {
 	public static final String Special = "!@#$%";
 	public static final String Long = "thisusernameshouldbetolongtobeausernamewithmorethen";
 		
-	//constants for testing email address
+	//constants used for testing email address
 	public static final String Incomplete = "test@";
 	public static final String Mistake = "test@yahoo,com";
 		
 	//account information
 	public static final String FirstName = "Administrator";
 	public static final String LastName = "Administrator";
-	public static final String InitialEmail = "admin@localhost";	
+	public static final String InitialEmail = "admin@localhost";
+	
+	//new information for branch and staff
+	public static final String NewBranch = "Finance";
+	public static final String NewCode = "345678";
+	public static final String NewStaff = "Accountant";
 }
