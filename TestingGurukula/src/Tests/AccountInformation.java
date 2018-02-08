@@ -21,7 +21,7 @@ public class AccountInformation {
 		Thread.sleep(500);
 	}
 	
-	public void AccountInformation() throws InterruptedException, IOException {	
+	public void AccountInformationView() throws InterruptedException, IOException {	
 		//check that page account information is opened
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/h2")).getAttribute("innerText");
 		if (Status.equalsIgnoreCase("User settings for [admin]")) {
