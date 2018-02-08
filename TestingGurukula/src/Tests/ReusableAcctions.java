@@ -13,7 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 public class ReusableAcctions {
 	
-	FirefoxDriver Mozila = new FirefoxDriver();	
+	FirefoxDriver Mozila = new FirefoxDriver();
 	String Status = "";
 	String ID = "";
 	String Branch = "";	
@@ -29,14 +29,14 @@ public class ReusableAcctions {
         //create table header and write test cases
         for (int r = 0; r < 11; r++) {
         	Row row = sheet.createRow(r);
-            for (int c = 0; c < 6; c++) {
+            for (int c = 0; c < 22; c++) {
             	Cell cell = row.createCell(c);
             	switch (r) {
 					case 0: if (c == 0) {
 								cell.setCellValue("Test Name");
 							}
 							else if (c > 0) {
-			            		cell.setCellValue("Test step");
+			            		cell.setCellValue("Test step " + c);
 			            	}
 					break;
 					case 1: if (c == 0) {
@@ -90,11 +90,17 @@ public class ReusableAcctions {
 	public void WriteResults(String Location, int Row, int Column, String Result) throws IOException {
 		FileInputStream input= new FileInputStream(new File(Location));                  
 		XSSFWorkbook workbook = new XSSFWorkbook(input);
-		XSSFSheet sheet = workbook.getSheetAt(0); 
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		Row WorkingRow = sheet.getRow(Row);
 		//select cell were to write results
-		Cell cell = null;
-		cell = sheet.getRow(Row).getCell(Column);
-		cell.setCellValue(Result);
+		Cell cell = WorkingRow.getCell(Column);
+		if (cell == null) {
+			cell = WorkingRow.createCell(Column);
+			cell.setCellValue(Result);
+		}
+		else {
+			cell.setCellValue(Result);
+		}
         
         //write results and close file
         input.close();
@@ -145,10 +151,10 @@ public class ReusableAcctions {
 			String BranchName = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[2]")).getAttribute("innerText");
 			String BranchCode = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[3]")).getAttribute("innerText");
 			if (BranchName.equalsIgnoreCase(Name) && BranchCode.equalsIgnoreCase(Code)) {
-				this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Passed");
+				WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Passed");
 			}
 			else {
-				this.WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Failed");
+				WriteResults(Tests.Constants.ExcelLocation, Row, Column, "Failed");
 			}
 		}
 	}
@@ -410,7 +416,7 @@ public class ReusableAcctions {
 		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/ul/li[4]/a/span[2]")).click();
 		Thread.sleep(1500);
 		String Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/h1")).getAttribute("innerText");												
-		if (Status == "Welcome to Gurukula!") {
+		if (Status.equalsIgnoreCase("Welcome to Gurukula!")) {
 			WriteResults(Tests.Constants.ExcelLocation, RowLogout, ColumnLogout, "Passed");
 		}
 		else {
