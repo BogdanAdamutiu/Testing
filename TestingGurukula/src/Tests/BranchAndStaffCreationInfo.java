@@ -55,7 +55,8 @@ public class BranchAndStaffCreationInfo {
 		Thread.sleep(1000);
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Tests.Constants.Special);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[4]")).getAttribute("innerText");
-		if (Status.equalsIgnoreCase("This field should follow pattern ^[a-zA-Z\\\\s]*$.")) {
+		Thread.sleep(500);
+		if (Status.equalsIgnoreCase("This field should follow pattern ^[a-zA-Z\\\\s]*$")) {
 			Action.WriteResults(Tests.Constants.ExcelLocation,5,4,"Passed");
 		}
 		else {
@@ -67,6 +68,7 @@ public class BranchAndStaffCreationInfo {
 		Thread.sleep(1000);
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Tests.Constants.Combined);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[4]")).getAttribute("innerText");
+		Thread.sleep(500);
 		if (Status.equalsIgnoreCase("This field should follow pattern ^[a-zA-Z\\\\s]*$.")) {
 			Action.WriteResults(Tests.Constants.ExcelLocation,5,5,"Passed");
 		}
@@ -74,16 +76,16 @@ public class BranchAndStaffCreationInfo {
 			Action.WriteResults(Tests.Constants.ExcelLocation,5,5,"Failed");
 		}
 		
-		//checks if numbers and letters can be added as name of branch
+		//checks if upper case characters can be added as name of branch
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).clear();
 		Thread.sleep(1000);
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Tests.Constants.Upper);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[4]")).getAttribute("hidden");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,5,6,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,5,6,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,5,6,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,5,6,"Passed");
 		}
 		
 		//checks if code field is mandatory
@@ -153,6 +155,7 @@ public class BranchAndStaffCreationInfo {
 		//checks if numbers and letters can make the name of a staff
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Tests.Constants.Combined);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[4]")).getAttribute("innerText");
+		Thread.sleep(500);
 		if (Status.equalsIgnoreCase("This field should follow pattern ^[a-zA-Z\\\\s]*$.")) {
 			Action.WriteResults(Tests.Constants.ExcelLocation,5,12,"Passed");
 		}
@@ -166,6 +169,7 @@ public class BranchAndStaffCreationInfo {
 		Thread.sleep(500);
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Tests.Constants.Special);
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[4]")).getAttribute("innerText");
+		Thread.sleep(500);
 		if (Status.equalsIgnoreCase("This field should follow pattern ^[a-zA-Z\\\\s]*$.")) {
 			Action.WriteResults(Tests.Constants.ExcelLocation,5,13,"Passed");
 		}
@@ -193,10 +197,10 @@ public class BranchAndStaffCreationInfo {
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys("T");
 		Status = Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).getAttribute("disabled");
 		if (Status != null) {
-			Action.WriteResults(Tests.Constants.ExcelLocation,5,15,"Passed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,5,15,"Failed");
 		}
 		else {
-			Action.WriteResults(Tests.Constants.ExcelLocation,5,15,"Failed");
+			Action.WriteResults(Tests.Constants.ExcelLocation,5,15,"Passed");
 		}
 		Action.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[1]")).click();
 		Thread.sleep(500);
