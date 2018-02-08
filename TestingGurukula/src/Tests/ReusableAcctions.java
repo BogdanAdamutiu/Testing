@@ -273,7 +273,7 @@ public class ReusableAcctions {
 		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
 		NrOfResults = Integer.parseInt(Results);
 		if (NrOfResults == 0) {
-//			this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"No results");
+			this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"No results");
 			Searches ++;
 		}
 		else if (NrOfResults >= 1) {
@@ -282,13 +282,13 @@ public class ReusableAcctions {
 				Branch = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr[" + i + "]/td[2]")).getAttribute("innerText");
 				Code = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr[" + i + "]/td[3]")).getAttribute("innerText");
 				if (ID.equalsIgnoreCase(SearchCriteria) || Branch.equalsIgnoreCase(SearchCriteria) || Code.equalsIgnoreCase(SearchCriteria)) {
-//					this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"Found a match");
+					this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"Found a match");
 					Searches ++;
 					FoundResult ++;
 				}						
 			}
 			if (FoundResult == 0) {
-//				this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"No results");
+				this.WriteResults(Tests.Constants.ExcelLocation,10,Searches,"No results");
 				Searches ++;				
 			}
 		}		
@@ -323,6 +323,47 @@ public class ReusableAcctions {
 				Searches ++;				
 			}
 		}	
+	}
+	
+	public void DeteleBranch(int StaffDeleted) throws InterruptedException, IOException {		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).click();
+		Thread.sleep(500);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[2]")).click();
+		Thread.sleep(1000);
+		if (StaffDeleted == 0) {
+			Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[2]")).getAttribute("disabled");
+			if (Status != null) {
+				this.WriteResults(Tests.Constants.ExcelLocation,9,1,"Failed");
+			}
+			else {
+				this.WriteResults(Tests.Constants.ExcelLocation,9,1,"Passed");
+				this.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[1]")).click();
+				Thread.sleep(1000);
+			}
+		}
+		else if (StaffDeleted == 1) {
+			Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).getAttribute("disabled");
+			if (Status != null) {
+				this.WriteResults(Tests.Constants.ExcelLocation,9,3,"Passed");
+			}
+			else {
+				this.WriteResults(Tests.Constants.ExcelLocation,9,3,"Failed");
+			}
+		}
+	}
+	
+	public void DeleteStaff() throws InterruptedException, IOException {		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).click();
+		Thread.sleep(500);		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[3]/div/div/form/div[3]/button[2]")).click();
+		Thread.sleep(500);
+		Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr/td[4]/button[3]")).getAttribute("disabled");
+		if (Status != null) {
+			this.WriteResults(Tests.Constants.ExcelLocation,9,2,"Passed");
+		}
+		else {
+			this.WriteResults(Tests.Constants.ExcelLocation,9,2,"Failed");
+		}
 	}
 	
 	public void Logout(int RowLogout, int ColumnLogout) throws InterruptedException, IOException {
