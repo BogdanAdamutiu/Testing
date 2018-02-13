@@ -43,4 +43,9 @@ public class Constants {
 	public static final String NewBranch = "Finance";
 	public static final String NewCode = "345678";
 	public static final String NewStaff = "Accountant";
+	
+	//names of the test cases
+	public static String[] TestCases = {"Login Information", "Password Change",	"New User Registration",
+										"Account Information", "Data format for Branch and Staff",
+										"Create", "View", "Edit", "Delete", "Query Branch and Staff"};
 }
