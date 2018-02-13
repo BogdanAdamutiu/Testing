@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		
-		ReusableAcctions Test = new ReusableAcctions();
+		DriverReusableActions Test = new DriverReusableActions();
 		Test.ResultsFile(Tests.Constants.ExcelLocation);
 		Test.Close();
 
@@ -44,7 +44,7 @@ public class Main {
 		
 		//sixth test case
 		//test create action
-		ReusableAcctions Test6 = new ReusableAcctions();
+		DriverReusableActions Test6 = new DriverReusableActions();
 		Test6.OpenBrowser();
 		Test6.Login(Tests.Constants.User, Tests.Constants.Password);
 		Test6.NavigateToBranch();
@@ -56,7 +56,7 @@ public class Main {
 		
 		//seventh test case
 		//test view action
-		ReusableAcctions Test7 = new ReusableAcctions();
+		DriverReusableActions Test7 = new DriverReusableActions();
 		Test7.OpenBrowser();
 		Test7.Login(Tests.Constants.User, Tests.Constants.Password);
 		Test7.NavigateToBranch();
@@ -68,7 +68,7 @@ public class Main {
 		
 		//eighth test case
 		//test edit action
-		ReusableAcctions Test8 = new ReusableAcctions();
+		DriverReusableActions Test8 = new DriverReusableActions();
 		Test8.OpenBrowser();
 		Test8.Login(Tests.Constants.User, Tests.Constants.Password);
 		Test8.NavigateToBranch();
@@ -80,7 +80,7 @@ public class Main {
 		
 		//ninth test case
 		//test delete action
-		ReusableAcctions Test9 = new ReusableAcctions();
+		DriverReusableActions Test9 = new DriverReusableActions();
 		Test9.OpenBrowser();
 		Test9.Login(Tests.Constants.User, Tests.Constants.Password);
 		Test9.NavigateToBranch();
@@ -93,7 +93,7 @@ public class Main {
 		Test9.Close();
 		
 		//tenth test case
-		ReusableAcctions Test10 = new ReusableAcctions();
+		DriverReusableActions Test10 = new DriverReusableActions();
 		Test10.OpenBrowser();
 		Test10.Login(Tests.Constants.User, Tests.Constants.Password);
 		Test10.NavigateToBranch();

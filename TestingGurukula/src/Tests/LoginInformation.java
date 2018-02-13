@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class LoginInformation {
 	
-	ReusableAcctions Action = new ReusableAcctions();
+	DriverReusableActions Action = new DriverReusableActions();
 	String Status = "";
 	
 	public void UserInformation() throws InterruptedException, IOException {

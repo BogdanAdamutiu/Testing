@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class AccountInformation {
 
-	ReusableAcctions Action = new ReusableAcctions();
+	DriverReusableActions Action = new DriverReusableActions();
 	String Status = "";
 	String SecondStatus = "";
 	String Email = "";

@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class PasswordChange {
 
-	ReusableAcctions Action = new ReusableAcctions();
+	DriverReusableActions Action = new DriverReusableActions();
 	String Status = "";
 	
 	public void OpenPasswordInformation() throws InterruptedException, IOException {

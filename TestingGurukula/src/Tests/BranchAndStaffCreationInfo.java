@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class BranchAndStaffCreationInfo {
 
-	ReusableAcctions Action = new ReusableAcctions();
+	DriverReusableActions Action = new DriverReusableActions();
 	String Status = "";
 	
 	//checks data format allowed for branch creation

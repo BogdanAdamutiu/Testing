@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class Edit {
 	
-	ReusableAcctions Action = new ReusableAcctions();
+	DriverReusableActions Action = new DriverReusableActions();
 	String Branch ="";
 	String Code = "";
 	String Staff = "";

@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 
 public class Delete {
 	
-	ReusableAcctions Action = new ReusableAcctions();
+	DriverReusableActions Action = new DriverReusableActions();
 	String Status = "";
 	
 	public void OpenAndLogin() throws InterruptedException {
