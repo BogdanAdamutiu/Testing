@@ -917,4 +917,74 @@ public class DriverReusableActions {
 		}
 	}	
 
+	/** 
+	* This method is used to create a new user 
+	* @param User This is the user that will be created
+	* @param Email This is the email assigned for the new user
+	* @param Password This is the password
+	* @param ConfirmationEmail This is the confirmation password
+	* @param Test This is the name of the test case
+	* @exception InterruptedException When a thread is waiting, sleeping, or otherwise occupied, 
+	* and the thread is interrupted, either before or during the activity
+	* @exception IOException On input error
+	*/
+	public void RegisterUser(String User, String Email, String Password, String ConfirmationPassword, String Test) throws InterruptedException, IOException {
+		MethodName = "Register user";
+		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div[2]/a")).click();
+		Thread.sleep(1500);
+			
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[4]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).sendKeys(User);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).sendKeys(Email);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/input")).sendKeys(Password);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[4]/input")).sendKeys(ConfirmationPassword);
+		
+		
+		if (!Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).isEnabled()) {
+			if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[1]")).isDisplayed() ||
+				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[2]")).isDisplayed() ||
+				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[3]")).isDisplayed() ||
+				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[4]")).isDisplayed()) {
+					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, User +" doesn't respect the standard", MethodName, Test);
+					Error ++;
+			}
+			if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[1]")).isDisplayed() ||
+				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[2]")).isDisplayed() ||
+				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[3]")).isDisplayed()) {
+					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, Email +" doesn't respect the standard", MethodName, Test);
+					Error ++;
+			}
+			if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div[1]/p[1]")).isDisplayed() ||
+				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div[1]/p[2]")).isDisplayed() ||
+				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div[1]/p[3]")).isDisplayed()) {
+					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, Password +" doesn't respect the standard", MethodName, Test);
+					Error ++;
+			}			
+		}
+		if (Error > 0) {
+			Error = 0;
+			Thread.sleep(1000);
+			return;
+		}
+	
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).click();
+		Thread.sleep(1500);
+		
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[5]")).isDisplayed()) {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Password "+ Password +" hast to be the same as confirmation password "+ ConfirmationPassword, MethodName, Test);
+		}
+		else if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]")).isDisplayed()) {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
+		}
+		else if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[3]")).isDisplayed()) {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "A user with this name "+ User +" already exists!", MethodName, Test);
+		}
+		else {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Passed", MethodName, Test);
+		}		
+	}	
 }
