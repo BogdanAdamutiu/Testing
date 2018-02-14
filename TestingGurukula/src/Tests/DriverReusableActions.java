@@ -108,6 +108,17 @@ public class DriverReusableActions {
 	}
 	
 	/** 
+	* This method is used to navigate to Password page
+	* @exception InterruptedException When a thread is waiting, sleeping, or otherwise occupied, 
+	* and the thread is interrupted, either before or during the activity
+	*/
+	public void NavigateToPasswordChange() throws InterruptedException {
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/a/span/span[2]")).click();
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/ul/li[2]/a/span[2]")).click();
+		Thread.sleep(500);
+	}
+	
+	/** 
 	* This method is used to create a new Branch
 	* @param Name This is the name of the branch
 	* @param Code This is the code of the branch
@@ -802,5 +813,62 @@ public class DriverReusableActions {
 		}
 	}
 	
+	/** 
+	* This method is used to change the password
+	* @param Password This is the password
+	* @param ConfirmationPassword This is the confirmation password 
+	* @param Test This is the name of the test case
+	* @exception InterruptedException When a thread is waiting, sleeping, or otherwise occupied, 
+	* and the thread is interrupted, either before or during the activity
+	* @exception IOException On input error
+	*/
+	public void ChangePassword(String Password, String ConfirmationPassword, String Test) throws InterruptedException, IOException {
+		MethodName = "Change Password";
+		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).sendKeys(Password);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).sendKeys(ConfirmationPassword);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).click();
+		Thread.sleep(1000);
+		
+		//check if a warning message appears		
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]")).isDisplayed() &&
+			!Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[3]")).isDisplayed()) {
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "An error has occurred! The password could not be changed.", MethodName, Test);
+		}
+		else if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[3]")).isDisplayed()){
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "An error has occurred! Password and confirmation password need to be the same", MethodName, Test);
+		}
+		else {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Password has been changed", MethodName, Test);
+		}
+	}
+	
+	/** 
+	* This method is used to check what data types the password accepts 
+	* @param Password This is the password 
+	* @param Test This is the name of the test case
+	* @exception InterruptedException When a thread is waiting, sleeping, or otherwise occupied, 
+	* and the thread is interrupted, either before or during the activity
+	* @exception IOException On input error
+	*/
+	public void CheckPassword(String Password, String Test) throws InterruptedException, IOException {
+		MethodName = "Check Password";
+		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).sendKeys(Password);
+		Thread.sleep(1000);
+		
+		//check if a warning message appears		
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div[1]/p[1]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div[1]/p[2]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div[1]/p[3]")).isDisplayed()) {
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation, Password +" is not good", MethodName, Test);
+		}
+		else {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, Password +" is accepted", MethodName, Test);
+		}
+	}	
 
 }
