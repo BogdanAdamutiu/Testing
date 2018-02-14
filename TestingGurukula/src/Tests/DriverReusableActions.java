@@ -32,6 +32,7 @@ public class DriverReusableActions {
 	int FoundResult = 0;
 	int Decrement = 0;
 	int DeletedStaffs = 0;
+	int Error = 0;
 	
 	/** 
 	* This method is used to open browser and navigate to Gurukula application
@@ -70,12 +71,12 @@ public class DriverReusableActions {
 		Thread.sleep(2000);
 		
 		//check that we are logged in
-		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[1]")).isDisplayed()) {
-			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
-		}
-		else if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div")).isDisplayed()) {
+		if (Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul")).getAttribute("childElementCount").equalsIgnoreCase("4")) {
 			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Passed", MethodName, Test);
 		}
+		else {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
+		}	 
 	}
 	
 	/** 
@@ -137,9 +138,42 @@ public class DriverReusableActions {
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[1]/button")).click();
 		Thread.sleep(1000);
 		
-		//enter branch name and code then click save
+		//enter branch name and code
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Name);
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/input")).sendKeys(Code);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/input")).sendKeys(Code);		
+		//check that entered branch and code respect the standard
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[1]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[2]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[3]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[4]")).isDisplayed()) {
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Branch name doesn't respect the standard", MethodName, Test);
+				
+				if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[1]")).isDisplayed() ||
+					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[2]")).isDisplayed() ||
+					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[3]")).isDisplayed() ||
+					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[4]")).isDisplayed()) {
+						ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Branch code doesn't respect the standard", MethodName, Test);
+						Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[1]")).click();
+						Error ++;
+				}
+				else {
+					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[1]")).click();
+					Error ++;
+				}
+		}
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[1]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[2]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[3]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[4]")).isDisplayed()) {
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Branch code doesn't respect the standard", MethodName, Test);
+				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[1]")).click();
+				Error ++;
+		}
+		if (Error > 0) {
+			Error = 0;
+			Thread.sleep(1000);
+			return;			
+		}		
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
 		Thread.sleep(1000);
 		
@@ -153,7 +187,7 @@ public class DriverReusableActions {
 		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
 		NrOfResults = Integer.parseInt(Results);
 		if (NrOfResults == 0) {
-			ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Failed",MethodName, Test);
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Failed", MethodName, Test);
 		}
 		else if (NrOfResults >= 1) {
 			for (int i = 1; i <= NrOfResults; i++) {
@@ -185,7 +219,21 @@ public class DriverReusableActions {
 		Thread.sleep(1500);
 		
 		//create new staff with given name and assign it to given branch
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Name);		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Name);
+		//check that the name of the staff respects the standard
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[1]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[2]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[3]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[4]")).isDisplayed()) {
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Staff name doesn't respect the standard", MethodName, Test);
+				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[1]")).click();
+				Error ++;
+		}
+		if (Error > 0) {
+			Error = 0;
+			Thread.sleep(1000);
+			return;			
+		}	
 		//create a select that contains all the available branches
 		Select SelectBranch = new Select(Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/select")));		
 		//open branch list
@@ -196,12 +244,6 @@ public class DriverReusableActions {
 		//click on save
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
 		Thread.sleep(1500);
-		
-		//clear search criteria and search after staff name 
-		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).clear();
-		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).sendKeys(Name);
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
-		Thread.sleep(1000);
 		
 		//search for the new created staff and check that it has been created with the given data
 		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
