@@ -23,6 +23,10 @@ public class DriverReusableActions {
 	String CodeSecondCheck = "";
 	String StaffSecondCheck = "";
 	String MethodName = "";
+	String FirstNameCheck = "";
+	String LastNameCheck = "";
+	String EmailCheck = "";
+	String LanguageCheck = "";
 	int NrOfResults = 0;
 	int SecondNrOfResults = 0;
 	int FoundResult = 0;
@@ -661,4 +665,69 @@ public class DriverReusableActions {
 		Mozila.close();
 		Thread.sleep(1500);
 	}
+	
+	/** 
+	* This method is used to check account information 
+	* @param FirstName This is the first name the user has set
+	* @param LastName This is the last name the user has set
+	* @param Email This is the email address the user has set
+	* @param Language This is the language the user has set
+	* @param Test This is the name of the test case
+	* @exception IOException On input error
+	*/
+	public void CheckAccountInformation(String FirstName, String LastName, String Email, String Language, String Test) throws IOException {
+		MethodName = "Check Account Information";
+		
+		Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/h2")).getAttribute("innerText");
+		FirstNameCheck = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).getAttribute("value");
+		LastNameCheck = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).getAttribute("value");
+		EmailCheck = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/input")).getAttribute("value");
+		LanguageCheck = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[4]/select")).getAttribute("innerText");
+		if (Status.equalsIgnoreCase("User settings for [admin]") && 
+			FirstNameCheck.equalsIgnoreCase(FirstName) &&	
+			LastNameCheck.equalsIgnoreCase(LastName) &&
+			EmailCheck.equalsIgnoreCase(Email) &&
+			LanguageCheck.equalsIgnoreCase("English")) {
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Passed", MethodName, Test);
+		}
+		else {
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
+		}	
+	}
+	
+	/** 
+	* This method is used to change all fields in account information 
+	* @param FirstName This is the new first name for the
+	* @param LastName This is the new last name for the user
+	* @param Email This is the new email address for the user
+	* @param Test This is the name of the test case
+	* @exception InterruptedException When a thread is waiting, sleeping, or otherwise occupied, 
+	* and the thread is interrupted, either before or during the activity
+	* @exception IOException On input error
+	*/
+	public void ChangeAllAccountInformation(String FirstName, String LastName, String Email, String Test) throws InterruptedException, IOException {
+		MethodName = "Change All Account Information";
+		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).sendKeys(FirstName);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).sendKeys(LastName);
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/input")).sendKeys(Email);		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).click();
+		Thread.sleep(1000);
+		
+		//check if confirmation message appeared or error message
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[1]/strong")).isDisplayed()) {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Passed", MethodName, Test);
+		}
+		else if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[3]/strong")).isDisplayed()) {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
+		}
+	}
+	
+	
+	
+	
+
 }
