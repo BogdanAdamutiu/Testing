@@ -717,7 +717,7 @@ public class DriverReusableActions {
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).click();
 		Thread.sleep(1000);
 		
-		//check if confirmation message appeared or error message
+		//check if confirmation message or error message appears
 		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[1]/strong")).isDisplayed()) {
 			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Passed", MethodName, Test);
 		}
@@ -726,8 +726,81 @@ public class DriverReusableActions {
 		}
 	}
 	
+	/** 
+	* This method is used to check what data types the first name accepts 
+	* @param FirstName This is the first name 
+	* @param Test This is the name of the test case
+	* @exception InterruptedException When a thread is waiting, sleeping, or otherwise occupied, 
+	* and the thread is interrupted, either before or during the activity
+	* @exception IOException On input error
+	*/
+	public void FirstName(String FirstName, String Test) throws InterruptedException, IOException {
+		MethodName = "First Name";
+		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).sendKeys(FirstName);
+		Thread.sleep(1000);
+			
+		//check if a warning message appears
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[1]")).isDisplayed()) {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, FirstName +" is not good", MethodName, Test);
+		}
+		else {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, FirstName +" is accepted", MethodName, Test);
+		}
 	
+	}
 	
+	/** 
+	* This method is used to check what data types the last name accepts 
+	* @param LastName This is the first name 
+	* @param Test This is the name of the test case
+	* @exception InterruptedException When a thread is waiting, sleeping, or otherwise occupied, 
+	* and the thread is interrupted, either before or during the activity
+	* @exception IOException On input error
+	*/
+	public void LastName(String LastName, String Test) throws InterruptedException, IOException {
+		MethodName = "Last Name";
+		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).sendKeys(LastName);
+		Thread.sleep(1000);
+			
+		//check if a warning message appears
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[1]")).isDisplayed()) {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, LastName +" is not good", MethodName, Test);
+		}
+		else {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, LastName +" is accepted", MethodName, Test);
+		}
+	
+	}
+	
+	/** 
+	* This method is used to check what data types the email accepts 
+	* @param Email This is the email address 
+	* @param Test This is the name of the test case
+	* @exception InterruptedException When a thread is waiting, sleeping, or otherwise occupied, 
+	* and the thread is interrupted, either before or during the activity
+	* @exception IOException On input error
+	*/
+	public void Email(String Email, String Test) throws InterruptedException, IOException {
+		MethodName = "Email";
+		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/input")).clear();
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/input")).sendKeys(Email);
+		Thread.sleep(1000);	
+		
+		//check if a warning message appears
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div/p[1]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div/p[2]")).isDisplayed() ||
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div/p[3]")).isDisplayed()) {
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation, Email +" is not good", MethodName, Test);
+		}
+		else {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, Email +" is accepted", MethodName, Test);
+		}
+	}
 	
 
 }
