@@ -18,10 +18,10 @@ public class Constants {
 	//staff information
 	public static final String Staff = "Developer";
 		
-	//new user information
+	//create new user information
 	public static final String NewUser = "testing";
 	public static final String NewPassword = "testing";
-	public static final String Email = "test@yahoo.com"; 
+	public static final String NewEmail = "test@yahoo.com"; 
 		
 	//constants for testing data type
 	public static final String Short = "test";
@@ -29,6 +29,7 @@ public class Constants {
 	public static final String Combined = "1t2e3s4t";
 	public static final String Special = "!@#$%^";
 	public static final String Long = "thisusernameshouldbetolongtobeausernamewithmorethen";
+	public static final String LongNumber = "12345678987654321";
 		
 	//constants used for testing email address
 	public static final String Incomplete = "test@";
