@@ -1,119 +1,203 @@
 package Tests;
 
 import java.io.IOException;
+import java.util.Set;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		
-		DriverReusableActions Test = new DriverReusableActions();
+		//create the results excel file
+		ReusableActions Test = new ReusableActions();
 		Test.ResultsFile(Tests.Constants.ExcelLocation);
-		Test.Close();
+		
+		//Login Information
+		//This test case will test the login
+		DriverReusableActions Test1 = new DriverReusableActions();
+		Test1.OpenBrowser();
+		Test1.Login("", "", false, Tests.Constants.TestCases[0]);
+		Test1.Login(Tests.Constants.User, "", false, Tests.Constants.TestCases[0]);
+		Test1.Login("", Tests.Constants.Password, false, Tests.Constants.TestCases[0]);
+		Test1.Login("Wrong", "Wrong", false, Tests.Constants.TestCases[0]);
+		Test1.Login(Tests.Constants.User, "Wrong", false, Tests.Constants.TestCases[0]);
+		Test1.Login("Wrong", Tests.Constants.Password, false, Tests.Constants.TestCases[0]);
+		Test1.Login(Tests.Constants.User, Tests.Constants.Password, true, Tests.Constants.TestCases[0]);
+		//get cookies
+		Set<Cookie> All = Test1.Mozila.manage().getCookies();
+		Test1.Close();
+		FirefoxDriver Firefox = new FirefoxDriver();
+		Firefox.get("http://192.168.178.227:8080/");
+		//set coockies from previous session to new session
+		for (Cookie cookie : All) {
+			Firefox.manage().addCookie(cookie);
+		}
+		Firefox.navigate().refresh();
+		Thread.sleep(2000);
+		if (Firefox.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div")).isDisplayed()) {
+			//trebuie sa revin sa vad de ce da null exception
+//			Test.WriteResults(Tests.Constants.ExcelLocation, "Passed", "Remember me", Tests.Constants.TestCases[0]);
+			Firefox.close();
+		}
+		else {
+			Test.WriteResults(Tests.Constants.ExcelLocation, "Failed", "Remember me", Tests.Constants.TestCases[0]);
+			Firefox.close();
+		}
+		
+		//Password Change
+		//This test case will test the functionality of password change
+		DriverReusableActions Test2 = new DriverReusableActions();
+		Test2.OpenBrowser();
+		Test2.Login(Tests.Constants.User, Tests.Constants.Password, false, Tests.Constants.TestCases[1]);
+		Test2.NavigateToPasswordChange();
+		Test2.ChangePassword("", "", Tests.Constants.TestCases[1]);
+		Test2.CheckPassword(Tests.Constants.Short, Tests.Constants.TestCases[1]);
+		Test2.CheckPassword(Tests.Constants.Long, Tests.Constants.TestCases[1]);
+		Test2.CheckPassword(Tests.Constants.Upper, Tests.Constants.TestCases[1]);
+		Test2.CheckPassword(Tests.Constants.Special, Tests.Constants.TestCases[1]);
+		Test2.CheckPassword(Tests.Constants.Combined, Tests.Constants.TestCases[1]);
+		Test2.ChangePassword(Tests.Constants.Password, Tests.Constants.NewPassword, Tests.Constants.TestCases[1]);
+		Test2.ChangePassword(Tests.Constants.NewPassword, Tests.Constants.NewPassword, Tests.Constants.TestCases[1]);
+		Test2.ChangePassword(Tests.Constants.Password, Tests.Constants.Password, Tests.Constants.TestCases[1]);
+		Test2.Close();
+		
+		//New User Registration
+		//This test case will try to registering a new user		
+		DriverReusableActions Test3 = new DriverReusableActions();
+		Test3.OpenBrowser();
+		Test3.RegisterUser(Tests.Constants.NewUser, Tests.Constants.NewEmail, Tests.Constants.NewPassword, Tests.Constants.NewPassword, Tests.Constants.TestCases[2]);
+		Test3.RegisterUser(Tests.Constants.Short, Tests.Constants.Mistake, Tests.Constants.Short, Tests.Constants.Short, Tests.Constants.TestCases[2]);
+		Test3.RegisterUser(Tests.Constants.Long, Tests.Constants.Incomplete, Tests.Constants.Long, Tests.Constants.Long, Tests.Constants.TestCases[2]);
+		Test3.RegisterUser(Tests.Constants.Upper, Tests.Constants.Short, Tests.Constants.Upper, Tests.Constants.Upper, Tests.Constants.TestCases[2]);
+		Test3.RegisterUser(Tests.Constants.Special, "", Tests.Constants.Special, Tests.Constants.Special, Tests.Constants.TestCases[2]);
+		Test3.RegisterUser(Tests.Constants.Combined, Tests.Constants.NewEmail, Tests.Constants.Combined, Tests.Constants.Combined, Tests.Constants.TestCases[2]);
+		Test3.RegisterUser(Tests.Constants.Combined, Tests.Constants.NewEmail, Tests.Constants.Password, Tests.Constants.NewPassword, Tests.Constants.TestCases[2]);
+		Test3.RegisterUser(Tests.Constants.User, Tests.Constants.InitialEmail, Tests.Constants.Password, Tests.Constants.Password, Tests.Constants.TestCases[2]);
 
-		//first test case
-		LoginInformation Test1 = new LoginInformation();
-		Test1.UserInformation();
-		Test1.RememberLogin();
+		//Account Information
+		//This test case will test the account information page
+		DriverReusableActions Test4 = new DriverReusableActions();
+		Test4.OpenBrowser();
+		Test4.Login(Tests.Constants.User, Tests.Constants.Password, false, Tests.Constants.TestCases[3]);
+		Test4.NavigateToAccountInformation();
+		Test4.FirstName("", Tests.Constants.TestCases[3]);
+		Test4.FirstName(Tests.Constants.Short, Tests.Constants.TestCases[3]);
+		Test4.FirstName(Tests.Constants.Long, Tests.Constants.TestCases[3]);
+		Test4.FirstName(Tests.Constants.Upper, Tests.Constants.TestCases[3]);
+		Test4.FirstName(Tests.Constants.Special, Tests.Constants.TestCases[3]);
+		Test4.FirstName(Tests.Constants.Combined, Tests.Constants.TestCases[3]);
+		Test4.LastName("", Tests.Constants.TestCases[3]);
+		Test4.LastName(Tests.Constants.Short, Tests.Constants.TestCases[3]);
+		Test4.LastName(Tests.Constants.Long, Tests.Constants.TestCases[3]);
+		Test4.LastName(Tests.Constants.Upper, Tests.Constants.TestCases[3]);
+		Test4.LastName(Tests.Constants.Special, Tests.Constants.TestCases[3]);
+		Test4.LastName(Tests.Constants.Combined, Tests.Constants.TestCases[3]);
+		Test4.Email("", Tests.Constants.TestCases[3]);
+		Test4.Email(Tests.Constants.Short, Tests.Constants.TestCases[3]);
+		Test4.Email(Tests.Constants.Incomplete, Tests.Constants.TestCases[3]);
+		Test4.Email(Tests.Constants.Mistake, Tests.Constants.TestCases[3]);
+		Test4.Logout(Tests.Constants.TestCases[3]);
+		Test4.Close();
 		
-		//second test case
-		PasswordChange Test2 = new PasswordChange();
-		Test2.OpenPasswordInformation();
-		Test2.PasswordChange();
-		
-		//third test case
-		RegisterUser Test3 = new RegisterUser();
-		Test3.Register();
-		Test3.NewUserInformation();
-		Test3.NewEmailInformation();
-		Test3.NewPasswordInformation();
-		
-		//fourth test case
-		AccountInformation Test4 = new AccountInformation();
-		Test4.OpenAccountInformation();
-		Test4.AccountInformationView();
-		Test4.ChangeAccountInformation();
-		Test4.ChangeAccountFirstName();
-		Test4.ChangeAccountLastName();
-		Test4.ChangeAccountEmail();
-		Test4.ChangeAccountLanguage();
-		
-		//fifth test case
-		BranchAndStaffCreationInfo Test5 = new BranchAndStaffCreationInfo();
-		Test5.BranchCreationInfo();
-		Test5.StaffCreationInfo();
-		
-		//sixth test case
-		//test create action
+		//Data format for Branch and Staff
+		//This test case will test what can be set as name and name for branch and staff
+		DriverReusableActions Test5 = new DriverReusableActions();
+		Test5.OpenBrowser();
+		Test5.Login(Tests.Constants.User, Tests.Constants.Password, false, Tests.Constants.TestCases[4]);
+		Test5.NavigateToBranch();
+		Test5.CreateBranch("", "", Tests.Constants.TestCases[4]);
+		Test5.CreateBranch(Tests.Constants.Short, Tests.Constants.Short, Tests.Constants.TestCases[4]);
+		Test5.CreateBranch(Tests.Constants.Long, Tests.Constants.LongNumber, Tests.Constants.TestCases[4]);
+		Test5.CreateBranch(Tests.Constants.Upper, "2", Tests.Constants.TestCases[4]);
+		Test5.CreateBranch(Tests.Constants.Special, Tests.Constants.Special, Tests.Constants.TestCases[4]);
+		Test5.CreateBranch(Tests.Constants.Combined, Tests.Constants.Combined, Tests.Constants.TestCases[4]);
+		Test5.CreateBranch(Tests.Constants.Branch, "1357", Tests.Constants.TestCases[4]);
+		Test5.NavigateToStaff();
+		Test5.CreateStaff("", Tests.Constants.Branch, Tests.Constants.TestCases[4]);
+		Test5.CreateStaff(Tests.Constants.Short, Tests.Constants.Branch, Tests.Constants.TestCases[4]);
+		Test5.CreateStaff(Tests.Constants.Long, Tests.Constants.Branch, Tests.Constants.TestCases[4]);
+		Test5.CreateStaff(Tests.Constants.Upper, Tests.Constants.Branch, Tests.Constants.TestCases[4]);
+		Test5.CreateStaff(Tests.Constants.Special, Tests.Constants.Branch, Tests.Constants.TestCases[4]);
+		Test5.CreateStaff(Tests.Constants.Combined, Tests.Constants.Branch, Tests.Constants.TestCases[4]);
+		Test5.CreateStaff("t", Tests.Constants.Branch, Tests.Constants.TestCases[4]);
+		Test5.Logout(Tests.Constants.TestCases[4]);
+		Test5.Close();
+			
+		//Create
+		//This test case will test if a branch and a staff can be create
 		DriverReusableActions Test6 = new DriverReusableActions();
 		Test6.OpenBrowser();
-		Test6.Login(Tests.Constants.User, Tests.Constants.Password);
+		Test6.Login(Tests.Constants.User, Tests.Constants.Password, false, Tests.Constants.TestCases[5]);
 		Test6.NavigateToBranch();
-		Test6.CreateBranch(Tests.Constants.Branch, Tests.Constants.Code, 6, 1, 1);
+		Test6.CreateBranch(Tests.Constants.Branch, Tests.Constants.Code, Tests.Constants.TestCases[5]);
+		Test6.CreateBranch(Tests.Constants.Branch, Tests.Constants.Code, Tests.Constants.TestCases[5]);
 		Test6.NavigateToStaff();
-		Test6.CreateStaff(Tests.Constants.Staff, 6, 2, 1);
-		Test6.Logout(6, 3);
+		Test6.CreateStaff(Tests.Constants.Staff, Tests.Constants.Branch, Tests.Constants.TestCases[5]);
+		Test6.CreateStaff(Tests.Constants.Staff, Tests.Constants.Branch, Tests.Constants.TestCases[5]);
+		Test6.Logout(Tests.Constants.TestCases[5]);
 		Test6.Close();
 		
-		//seventh test case
-		//test view action
+		//View
+		//This test case will test the view action
 		DriverReusableActions Test7 = new DriverReusableActions();
 		Test7.OpenBrowser();
-		Test7.Login(Tests.Constants.User, Tests.Constants.Password);
+		Test7.Login(Tests.Constants.User, Tests.Constants.Password, false, Tests.Constants.TestCases[6]);
 		Test7.NavigateToBranch();
-		Test7.ViewBranch();
+		Test7.ViewBranch(Tests.Constants.Branch, Tests.Constants.Code, Tests.Constants.TestCases[6]);
 		Test7.NavigateToStaff();
-		Test7.ViewStaff();
-		Test7.Logout(7,3);
+		Test7.ViewStaff(Tests.Constants.Staff, Tests.Constants.Branch, Tests.Constants.TestCases[6]);
+		Test7.Logout(Tests.Constants.TestCases[6]);
 		Test7.Close();
 		
-		//eighth test case
-		//test edit action
+		//Edit
+		//This test case will test the edit action
 		DriverReusableActions Test8 = new DriverReusableActions();
 		Test8.OpenBrowser();
-		Test8.Login(Tests.Constants.User, Tests.Constants.Password);
+		Test8.Login(Tests.Constants.User, Tests.Constants.Password, false, Tests.Constants.TestCases[7]);
 		Test8.NavigateToBranch();
-		Test8.EditBranch(Tests.Constants.NewBranch, Tests.Constants.NewCode, 8, 1);
+		Test8.EditBranch(Tests.Constants.Branch, Tests.Constants.NewBranch, Tests.Constants.Code, Tests.Constants.NewCode, Tests.Constants.TestCases[7]);
 		Test8.NavigateToStaff();
-		Test8.EditStaff(Tests.Constants.NewStaff, 8, 2);
-		Test8.Logout(8, 3);
+		Test8.EditStaff(Tests.Constants.Staff, Tests.Constants.NewStaff, Tests.Constants.Branch, Tests.Constants.NewBranch, Tests.Constants.TestCases[7]);
+		Test8.Logout(Tests.Constants.TestCases[7]);
 		Test8.Close();
 		
-		//ninth test case
-		//test delete action
+		//Delete
+		//This test case will test the delete action
 		DriverReusableActions Test9 = new DriverReusableActions();
 		Test9.OpenBrowser();
-		Test9.Login(Tests.Constants.User, Tests.Constants.Password);
+		Test9.Login(Tests.Constants.User, Tests.Constants.Password, false, Tests.Constants.TestCases[8]);
 		Test9.NavigateToBranch();
-		Test9.DeteleBranch(0);
+		Test9.DeteleBranch(Tests.Constants.Branch, Tests.Constants.Code, Tests.Constants.TestCases[8]);
 		Test9.NavigateToStaff();
-		Test9.DeleteStaff();
+		Test9.DeleteStaff(Tests.Constants.Staff, Tests.Constants.Branch, Tests.Constants.TestCases[8]);
 		Test9.NavigateToBranch();
-		Test9.DeteleBranch(1);
-		Test9.Logout(9, 4);
+		Test9.DeteleBranch(Tests.Constants.Branch, Tests.Constants.Code, Tests.Constants.TestCases[8]);
+		Test9.Logout(Tests.Constants.TestCases[8]);
 		Test9.Close();
 		
-		//tenth test case
+		//Query
+		//This test case will test the query action
 		DriverReusableActions Test10 = new DriverReusableActions();
 		Test10.OpenBrowser();
-		Test10.Login(Tests.Constants.User, Tests.Constants.Password);
+		Test10.Login(Tests.Constants.User, Tests.Constants.Password, false, Tests.Constants.TestCases[9]);
 		Test10.NavigateToBranch();
-		Test10.CreateBranch("Finance", "1234", 10, 1, 0);
-		Test10.CreateBranch("Development", "4578", 10, 2, 0);
-		Test10.CreateBranch("Marketing", "3456", 10, 3, 0);
+		Test10.CreateBranch("Management", "13579", Tests.Constants.TestCases[9]);
+		Test10.CreateBranch("Finance", "2468", Tests.Constants.TestCases[9]);
 		Test10.NavigateToStaff();
-		Test10.CreateStaff("Accountant", 10, 4, 2);
-		Test10.CreateStaff("Developer", 10, 5, 3);
-		Test10.CreateStaff("Tester", 10, 6, 3);
+		Test10.CreateStaff("Accountant", "Finance", Tests.Constants.TestCases[9]);
+		Test10.CreateStaff("Manager", "Management", Tests.Constants.TestCases[9]);
 		Test10.NavigateToBranch();
-		Test10.QueryBranch("3");
-		Test10.QueryBranch("Marketing");
-		Test10.QueryBranch("4578");
-		Test10.QueryBranch("Management");
+		Test10.QueryBranch("3", Tests.Constants.TestCases[9]);
+		Test10.QueryBranch("Marketing", Tests.Constants.TestCases[9]);
+		Test10.QueryBranch("4578", Tests.Constants.TestCases[9]);
+		Test10.QueryBranch("Inexistent", Tests.Constants.TestCases[9]);
 		Test10.NavigateToStaff();
-		Test10.QueryStaff("Tester");
-		Test10.QueryStaff("2");
-		Test10.QueryStaff("Development");
-		Test10.Logout(10,7);
+		Test10.QueryStaff("Tester", Tests.Constants.TestCases[9]);
+		Test10.QueryStaff("2", Tests.Constants.TestCases[9]);
+		Test10.QueryStaff("Development", Tests.Constants.TestCases[9]);
+		Test10.Logout(Tests.Constants.TestCases[9]);
 		Test10.Close();		
 	}
 
