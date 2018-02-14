@@ -34,7 +34,7 @@ public class ReusableActions {
         	  CreateCell.setCellValue("Test Name");
 		  }
           //check if the row number is a multiple of 2
-          else if (row % 2 == 0 && column == 0 && TestCaseIndex < Tests.Constants.TestCases.length) {
+          else if (row % 3 == 0 && column == 0 && TestCaseIndex < Tests.Constants.TestCases.length) {
         	  CreateCell.setCellValue(Tests.Constants.TestCases[TestCaseIndex]);
           	  TestCaseIndex ++;
           }
