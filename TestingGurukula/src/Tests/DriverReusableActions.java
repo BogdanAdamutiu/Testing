@@ -55,8 +55,12 @@ public class DriverReusableActions {
 	*/
 	public void Login(String User, String Password, Boolean RememberMe, String Test) throws InterruptedException, IOException {
 		MethodName = "Login";
+		
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[1]/a[2]/span[2]")).click();
+		Thread.sleep(1000);
+		
 		//click on login
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div[1]/a")).click();		
+		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div[1]/a")).click();	
 		Thread.sleep(1000);
 		
 		//enter user name and password
@@ -76,7 +80,8 @@ public class DriverReusableActions {
 		}
 		else {
 			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
-		}	 
+		}
+		Thread.sleep(1500);
 	}
 	
 	/** 
@@ -146,13 +151,13 @@ public class DriverReusableActions {
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[2]")).isDisplayed() ||
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[3]")).isDisplayed() ||
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[4]")).isDisplayed()) {
-				ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Branch name doesn't respect the standard", MethodName, Test);
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Branch name "+ Name +" doesn't respect the standard", MethodName, Test);
 				
 				if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[1]")).isDisplayed() ||
 					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[2]")).isDisplayed() ||
 					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[3]")).isDisplayed() ||
 					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[4]")).isDisplayed()) {
-						ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Branch code doesn't respect the standard", MethodName, Test);
+						ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Branch code "+ Code +" doesn't respect the standard", MethodName, Test);
 						Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[1]")).click();
 						Error ++;
 				}
@@ -165,7 +170,7 @@ public class DriverReusableActions {
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[2]")).isDisplayed() ||
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[3]")).isDisplayed() ||
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[3]/div/p[4]")).isDisplayed()) {
-				ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Branch code doesn't respect the standard", MethodName, Test);
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Branch code "+ Code +" doesn't respect the standard", MethodName, Test);
 				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[1]")).click();
 				Error ++;
 		}
@@ -214,6 +219,8 @@ public class DriverReusableActions {
 	*/
 	public void CreateStaff(String Name, String Branch, String Test) throws InterruptedException, IOException {
 		MethodName = "Create Staff";
+		
+		Error = 1;
 		//click on "Create Staff"
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[1]/button")).click();
 		Thread.sleep(1500);
@@ -225,7 +232,7 @@ public class DriverReusableActions {
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[2]")).isDisplayed() ||
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[3]")).isDisplayed() ||
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[4]")).isDisplayed()) {
-				ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Staff name doesn't respect the standard", MethodName, Test);
+				ExcelAction.WriteResults(Tests.Constants.ExcelLocation,"Staff name "+ Name +" doesn't respect the standard", MethodName, Test);
 				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[1]")).click();
 				Error ++;
 		}
@@ -257,11 +264,12 @@ public class DriverReusableActions {
 				BranchCheck = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody/tr["+ i +"]/td[3]")).getAttribute("innerText");
 				if (StaffCheck.equalsIgnoreCase(Name) && BranchCheck.equalsIgnoreCase(Branch)) {
 					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Passed", MethodName, Test);
-				}
-				else {
-					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
+					Error = 0;
 				}
 			}
+		}
+		if (Error != 0) {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
 		}
 	}
 	
@@ -452,12 +460,6 @@ public class DriverReusableActions {
 	public void EditStaff(String Name, String NewName, String Branch, String NewBranch, String Test) throws InterruptedException, IOException {	
 		MethodName = "Edit Staff";
 		
-		//search for staff you want to edit
-		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).clear();
-		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).sendKeys(Name);
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
-		Thread.sleep(1000);
-		
 		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
 		NrOfResults = Integer.parseInt(Results);
 		if (NrOfResults == 0) {
@@ -483,12 +485,6 @@ public class DriverReusableActions {
 					SelectBranch.selectByVisibleText(NewBranch);
 					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[3]/button[2]")).click();
 					Thread.sleep(1500);
-					
-					//search for edited staff
-					Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).clear();
-					Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).sendKeys(NewName);
-					Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
-					Thread.sleep(1000);
 					
 					//check that the data of the staff have been changed
 					SecondResults = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
@@ -720,7 +716,7 @@ public class DriverReusableActions {
 	*/
 	public void Close() throws InterruptedException {
 		Mozila.close();
-		Thread.sleep(1500);
+		Thread.sleep(2000);
 	}
 	
 	/** 
@@ -875,8 +871,10 @@ public class DriverReusableActions {
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).clear();
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/input")).sendKeys(Password);
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/input")).sendKeys(ConfirmationPassword);
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).click();
-		Thread.sleep(1000);
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).isEnabled()) {
+			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).click();
+			Thread.sleep(1500);
+		}		
 		
 		//check if a warning message appears		
 		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[2]")).isDisplayed() &&
@@ -885,9 +883,6 @@ public class DriverReusableActions {
 		}
 		else if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[3]")).isDisplayed()){
 			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "An error has occurred! Password and confirmation password need to be the same", MethodName, Test);
-		}
-		else {
-			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Password has been changed", MethodName, Test);
 		}
 	}
 	
@@ -931,6 +926,8 @@ public class DriverReusableActions {
 	public void RegisterUser(String User, String Email, String Password, String ConfirmationPassword, String Test) throws InterruptedException, IOException {
 		MethodName = "Register user";
 		
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[1]/a[2]/span[2]")).click();
+		Thread.sleep(1000);
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div[2]/a")).click();
 		Thread.sleep(1500);
 			
@@ -949,19 +946,19 @@ public class DriverReusableActions {
 				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[2]")).isDisplayed() ||
 				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[3]")).isDisplayed() ||
 				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[1]/div/p[4]")).isDisplayed()) {
-					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, User +" doesn't respect the standard", MethodName, Test);
+					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "User "+ User +" doesn't respect the standard", MethodName, Test);
 					Error ++;
 			}
 			if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[1]")).isDisplayed() ||
 				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[2]")).isDisplayed() ||
 				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[2]/div/p[3]")).isDisplayed()) {
-					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, Email +" doesn't respect the standard", MethodName, Test);
+					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Email "+ Email +" doesn't respect the standard", MethodName, Test);
 					Error ++;
 			}
 			if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div[1]/p[1]")).isDisplayed() ||
 				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div[1]/p[2]")).isDisplayed() ||
 				Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/div[3]/div[1]/p[3]")).isDisplayed()) {
-					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, Password +" doesn't respect the standard", MethodName, Test);
+					ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Password "+ Password +" doesn't respect the standard", MethodName, Test);
 					Error ++;
 			}			
 		}
