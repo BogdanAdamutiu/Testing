@@ -93,6 +93,17 @@ public class DriverReusableActions {
 	}
 	
 	/** 
+	* This method is used to navigate to Account Information page
+	* @exception InterruptedException When a thread is waiting, sleeping, or otherwise occupied, 
+	* and the thread is interrupted, either before or during the activity
+	*/
+	public void NavigateToAccountInformation() throws InterruptedException {
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/a/span/span[2]")).click();
+		Mozila.findElement(By.xpath("/html/body/div[2]/nav/div/div[2]/ul/li[3]/ul/li[1]/a/span[2]")).click();
+		Thread.sleep(500);
+	}
+	
+	/** 
 	* This method is used to create a new Branch
 	* @param Name This is the name of the branch
 	* @param Code This is the code of the branch
