@@ -46,31 +46,35 @@ public class DriverReusableActions {
 	* This method is used to login in to Gurukula application
 	* @param User This the user name
 	* @param Password This is the password
+	* @param RememberMe This is to remain logged in if you close the browser. This parameter can only be true or false
 	* @param Test This is the name of the test case
 	* @exception InterruptedException When a thread is waiting, sleeping, or otherwise occupied, 
 	* and the thread is interrupted, either before or during the activity
 	* @exception IOException On input error
 	*/
-	public void Login(String User, String Password, String Test) throws InterruptedException, IOException {
+	public void Login(String User, String Password, Boolean RememberMe, String Test) throws InterruptedException, IOException {
 		MethodName = "Login";
 		//click on login
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div[1]/a")).click();		
 		Thread.sleep(1000);
 		
 		//enter user name and password
+		Mozila.findElement(By.xpath("//*[@id=\"username\"]")).clear();
+		Mozila.findElement(By.xpath("//*[@id=\"password\"]")).clear();
 		Mozila.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys(User);
 		Mozila.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(Password);
-		Mozila.findElement(By.xpath("//*[@id=\"rememberMe\"]")).click();
+		if (!RememberMe) {
+			Mozila.findElement(By.xpath("//*[@id=\"rememberMe\"]")).click();
+		}
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/form/button")).click();
 		Thread.sleep(2000);
 		
-		//check that we are logged in as user admin
-		Status = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div")).getAttribute("innerText");
-		if (Status.equalsIgnoreCase("You are logged in as user \"admin\".")) {
-			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Passed", MethodName, Test);
-		}
-		else {
+		//check that we are logged in
+		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div/div[1]")).isDisplayed()) {
 			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
+		}
+		else if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div")).isDisplayed()) {
+			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Passed", MethodName, Test);
 		}
 	}
 	
