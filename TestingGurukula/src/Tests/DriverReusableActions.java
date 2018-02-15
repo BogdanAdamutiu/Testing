@@ -33,6 +33,7 @@ public class DriverReusableActions {
 	int Decrement = 0;
 	int DeletedStaffs = 0;
 	int Error = 0;
+	int CreatedStaff = 0;
 	
 	/** 
 	* This method is used to open browser and navigate to Gurukula application
@@ -220,13 +221,14 @@ public class DriverReusableActions {
 	public void CreateStaff(String Name, String Branch, String Test) throws InterruptedException, IOException {
 		MethodName = "Create Staff";
 		
-		Error = 1;
+		CreatedStaff = 1;
 		//click on "Create Staff"
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[1]/button")).click();
 		Thread.sleep(1500);
 		
 		//create new staff with given name and assign it to given branch
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/input")).sendKeys(Name);
+		Thread.sleep(500);
 		//check that the name of the staff respects the standard
 		if (Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[1]")).isDisplayed() ||
 			Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[2]/div/div/form/div[2]/div[2]/div/p[2]")).isDisplayed() ||
@@ -268,7 +270,7 @@ public class DriverReusableActions {
 				}
 			}
 		}
-		if (Error != 0) {
+		if (CreatedStaff != 0) {
 			ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
 		}
 	}
@@ -335,12 +337,6 @@ public class DriverReusableActions {
 	public void ViewStaff(String Staff, String Branch, String Test) throws InterruptedException, IOException {
 		MethodName = "View Staff";
 		
-		//search for staff you want to see
-		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).clear();
-		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).sendKeys(Staff);
-		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
-		Thread.sleep(1000);
-		
 		//check if a staff with the given name exists
 		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
 		NrOfResults = Integer.parseInt(Results);
@@ -391,7 +387,7 @@ public class DriverReusableActions {
 		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).clear();
 		Mozila.findElement(By.xpath("//*[@id=\"searchQuery\"]")).sendKeys(Name);
 		Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[1]/div/div[2]/form/button")).click();
-		Thread.sleep(1000);
+		Thread.sleep(1500);
 		
 		Results = Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div[4]/table/tbody")).getAttribute("childElementCount");
 		NrOfResults = Integer.parseInt(Results);
@@ -440,6 +436,7 @@ public class DriverReusableActions {
 								ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
 							}
 						}
+						return;
 					}
 				}
 			}
@@ -503,6 +500,7 @@ public class DriverReusableActions {
 								ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", MethodName, Test);
 							}
 						}
+						return;
 					}
 				}
 			}
