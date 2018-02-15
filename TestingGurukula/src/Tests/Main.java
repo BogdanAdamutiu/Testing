@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Main {
 
@@ -28,23 +27,21 @@ public class Main {
 		//get cookies
 		Set<Cookie> All = Test1.Mozila.manage().getCookies();
 		Test1.Close();
-		FirefoxDriver Firefox = new FirefoxDriver();
-		Firefox.get("http://192.168.178.227:8080/");
-		//set coockies from previous session to new session
+		DriverReusableActions Test11 = new DriverReusableActions();
+		Test11.OpenBrowser();
 		for (Cookie cookie : All) {
-			Firefox.manage().addCookie(cookie);
+			Test11.Mozila.manage().addCookie(cookie);
 		}
-		Firefox.navigate().refresh();
+		Test11.Mozila.navigate().refresh();
 		Thread.sleep(2000);
-		if (Firefox.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div")).isDisplayed()) {
-			//trebuie sa revin sa vad de ce da null exception
-//			Test.WriteResults(Tests.Constants.ExcelLocation, "Passed", "Remember me", Tests.Constants.TestCases[0]);
-			Firefox.close();
+		if (Test11.Mozila.findElement(By.xpath("/html/body/div[3]/div[1]/div/div/div[2]/div/div")).isDisplayed()) {
+			Test11.ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Passed", "Remember me", Tests.Constants.TestCases[0]);
+			Test11.Close();
 		}
 		else {
-			Test.WriteResults(Tests.Constants.ExcelLocation, "Failed", "Remember me", Tests.Constants.TestCases[0]);
-			Firefox.close();
-		}
+			Test11.ExcelAction.WriteResults(Tests.Constants.ExcelLocation, "Failed", "Remember me", Tests.Constants.TestCases[0]);
+			Test11.Close();
+		}		
 		
 		//Password Change
 		//This test case will test the functionality of password change
@@ -75,6 +72,7 @@ public class Main {
 		Test3.RegisterUser(Tests.Constants.Combined, Tests.Constants.NewEmail, Tests.Constants.Combined, Tests.Constants.Combined, Tests.Constants.TestCases[2]);
 		Test3.RegisterUser(Tests.Constants.Combined, Tests.Constants.NewEmail, Tests.Constants.Password, Tests.Constants.NewPassword, Tests.Constants.TestCases[2]);
 		Test3.RegisterUser(Tests.Constants.User, Tests.Constants.InitialEmail, Tests.Constants.Password, Tests.Constants.Password, Tests.Constants.TestCases[2]);
+		Test3.Close();
 
 		//Account Information
 		//This test case will test the account information page
@@ -113,7 +111,7 @@ public class Main {
 		Test5.CreateBranch(Tests.Constants.Upper, "2", Tests.Constants.TestCases[4]);
 		Test5.CreateBranch(Tests.Constants.Special, Tests.Constants.Special, Tests.Constants.TestCases[4]);
 		Test5.CreateBranch(Tests.Constants.Combined, Tests.Constants.Combined, Tests.Constants.TestCases[4]);
-		Test5.CreateBranch(Tests.Constants.Branch, "1357", Tests.Constants.TestCases[4]);
+		Test5.CreateBranch(Tests.Constants.Branch, Tests.Constants.Code, Tests.Constants.TestCases[4]);
 		Test5.NavigateToStaff();
 		Test5.CreateStaff("", Tests.Constants.Branch, Tests.Constants.TestCases[4]);
 		Test5.CreateStaff(Tests.Constants.Short, Tests.Constants.Branch, Tests.Constants.TestCases[4]);
@@ -131,11 +129,11 @@ public class Main {
 		Test6.OpenBrowser();
 		Test6.Login(Tests.Constants.User, Tests.Constants.Password, false, Tests.Constants.TestCases[5]);
 		Test6.NavigateToBranch();
-		Test6.CreateBranch(Tests.Constants.Branch, Tests.Constants.Code, Tests.Constants.TestCases[5]);
-		Test6.CreateBranch(Tests.Constants.Branch, Tests.Constants.Code, Tests.Constants.TestCases[5]);
+		Test6.CreateBranch("Logistics", "4567", Tests.Constants.TestCases[5]);
+		Test6.CreateBranch("Logistics", "4567", Tests.Constants.TestCases[5]);
 		Test6.NavigateToStaff();
-		Test6.CreateStaff(Tests.Constants.Staff, Tests.Constants.Branch, Tests.Constants.TestCases[5]);
-		Test6.CreateStaff(Tests.Constants.Staff, Tests.Constants.Branch, Tests.Constants.TestCases[5]);
+		Test6.CreateStaff(Tests.Constants.Staff, "Logistics", Tests.Constants.TestCases[5]);
+		Test6.CreateStaff(Tests.Constants.Staff, "Logistics", Tests.Constants.TestCases[5]);
 		Test6.Logout(Tests.Constants.TestCases[5]);
 		Test6.Close();
 		
